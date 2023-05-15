@@ -1,4 +1,5 @@
-* Info
+* Keegan's Game (kgame)
+** Info
 This is just a small project I'm working on and may become something in the future.
 
-It's based on a game me and my older brother would play outside when I was younger.
+It's based on a game me and my older brother (Keegan) would play outside when I was younger.
