@@ -23,7 +23,7 @@ fn main() {
     loop {
         loop {
             window.clear();
-            window.mvaddstr(0, 0, "  Keegan's Game\n\n");
+            window.mvaddstr(0, 0, " Keegan's Game\n\n");
 
             if menuvar == 20 {
                 window.mvaddstr(22, 0, "Info in link: https://github.com/TheKamboy/kgame-rust/blob/master/README.org");
@@ -84,10 +84,101 @@ fn main() {
         }
     }
     if menuvar == 0 {
-        test(&window);
+        chapter_select(&window);
     }
     else if menuvar == 2 {
         endwin();
+    }
+}
+
+fn chapter_select(window: &Window) {
+    let mut menuvar = 0;
+    let menumax = 1;
+    loop {
+        loop {
+            window.clear();
+            window.mvaddstr(0, 0, "  Chapter Select\n\n");
+    
+            if menuvar == 0 {
+                window.mvaddstr(2, 0, "> Chapter 1 and 2 <\n");
+                window.mvaddstr(3, 0, "  Testing Grounds  \n");
+                //window.mvaddstr(4, 0, "     Exit     \n");
+            }
+            else if menuvar == 1 {
+                window.mvaddstr(2, 0, "  Chapter 1 and 2  \n");
+                window.mvaddstr(3, 0, "> Testing Grounds <\n");
+                //window.mvaddstr(4, 0, "     Exit     \n");
+            }
+            // else if menuvar == 2 {
+            //     window.mvaddstr(2, 0, "  Start Game  \n");
+            //     window.mvaddstr(3, 0, "     Info     \n");
+            //     window.mvaddstr(4, 0, ">    Exit    <\n");
+            // }
+    
+            window.mvaddstr(24, 0, "W: Up, S: Down, E: Select");
+    
+            let ginput: char;
+            match window.getch() {
+                Some(Input::Character(c)) => { ginput = c; },
+                Some(_input) => {ginput = ' '},
+                None => {ginput = ' '}
+            }
+    
+            if ginput == 'w' {
+                menuvar -= 1;
+    
+                if menuvar < 0 {
+                    menuvar = 0;
+                }
+            }
+            else if ginput == 's' {
+                menuvar += 1;
+    
+                if menuvar > menumax {
+                    menuvar = menumax;
+                }
+            }
+            else if ginput == 'e' {
+                break;
+            }
+        }
+
+        if menuvar == 0 {
+            break;
+        }
+        else if menuvar == 1 {
+            break;
+        }
+    }
+    if menuvar == 0 {
+        chapter_1_intro(&window);
+    }
+    else if menuvar == 1 {
+        test(&window);
+    }
+}
+
+fn chapter_1_intro(window: &Window) {
+    let mut dialogue = 0;
+    let mut _ginput: char;
+    loop {
+        window.clear();
+        window.mvaddstr(0, 0, "Chapter 1: Humble Beginnings");
+
+        window.mvaddstr(24, 0, "Press any key to continue...");
+
+        if dialogue >= 1 {
+            window.mvaddstr(2, 0, "You will be playing through the story of Keegan Miller, a millitary commander of a military organization called \"The Ghosts\".");
+        }
+
+        match window.getch() {
+            // Lazy Moment
+            Some(Input::Character(c)) => { _ginput = c; },
+            Some(_input) => {_ginput = ' '},
+            None => {_ginput = ' '}
+        }
+
+        dialogue += 1;
     }
 }
 
