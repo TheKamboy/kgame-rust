@@ -69,24 +69,3 @@ fn move_player_back(player: Player) -> Player {
     //println!("\nMove back sent!\n\nX: {}, Y: {}\nBX: {}, BY: {}", player.x, player.y, player.bx, player.by);
     Player { x: (player.bx), y: (player.by), symbol: (player.symbol), bx: (player.bx), by: (player.by), hudtext: (player.hudtext) }
 }
-
-// fn text_in_a_box(text: &str, window: &Window) {
-//     let len = text.len();
-
-//     window.attron(A_OVERLINE | A_UNDERLINE | A_LEFTLINE);
-//     if len == 1 {
-//         window.attron(A_RIGHTLINE);
-//     }
-
-//     window.addnstr(text, 1);
-//     if len > 1 {
-//         window.attroff(A_LEFTLINE);
-//         if len > 2 {
-//             window.addnstr(&text[1..], len - 2);
-//         }
-//         window.attron(A_RIGHTLINE);
-//         window.addnstr(&text[len - 1..], 1);
-//     }
-
-//     window.attroff(A_OVERLINE | A_UNDERLINE | A_LEFTLINE | A_RIGHTLINE);
-// }
