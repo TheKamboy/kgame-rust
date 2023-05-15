@@ -1,4 +1,6 @@
 * Keegan's Game (kgame)
+WARNING: This project is in a =BETA= state and may not work as intended.
+
 ** Info
 This is just a small project I'm working on and may become something in the future.
 
