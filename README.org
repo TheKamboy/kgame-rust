@@ -1,5 +1,6 @@
 * Keegan's Game (kgame)
 WARNING: This project is in a =BETA= state and may not work as intended.
+Looks like also the ncurses crate has issues but nothing I can do about it.
 
 ** Info
 This is just a small project I'm working on and may become something in the future.
