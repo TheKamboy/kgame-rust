@@ -93,15 +93,19 @@ fn main() {
 
 fn test(window: &Window) {
     let mut k: Player = new(0, 0, "K".to_string());
+    let mut debug = true;
     window.keypad(true);
     noecho();
     // Game Loop
     loop {
         window.clear();
         set_blink(false);
-        window.mvaddstr(0, 10, format!("X: {}, Y: {}", k.x, k.y));
-        window.mvaddstr(1, 10, format!("BX: {}, BY: {}", k.bx, k.by));
+        if debug {
+            window.mvaddstr(0, 10, format!("X: {}, Y: {}", k.x, k.y));
+            window.mvaddstr(1, 10, format!("BX: {}, BY: {}", k.bx, k.by));
+        }
         window.mvaddstr(k.y, k.x, k.symbol.as_str());
+        window.mvaddstr(24, 0, "W: Up, A: Left, S: Down, D: Right, 9: Enable/Disable Debug");
         window.refresh();
         let ginput: char;
         match window.getch() {
@@ -127,6 +131,14 @@ fn test(window: &Window) {
         }
         else if ginput == 'd' {
             k.x += 1;
+        }
+        else if ginput == '9' {
+            if debug {
+                debug = false;
+            }
+            else {
+                debug = true;
+            }
         }
 
         // Borders
