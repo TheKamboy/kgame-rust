@@ -1,0 +1,4 @@
+* Security Policy
+
+** Reporting a Bug
+If you encounter a bug please report it into Issues. That will help quite a bit.
