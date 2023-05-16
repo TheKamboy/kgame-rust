@@ -212,6 +212,7 @@ fn keegans_room_ch1(window: &Window) {
     noecho();
     // Game Loop
     loop {
+        k = new(k.x, k.y, k.symbol, k.hudtext);
         window.clear();
         set_blink(false);
         if debug {
@@ -244,13 +245,13 @@ fn keegans_room_ch1(window: &Window) {
         if ginput == 'w' {
             k.y -= 1;
         }
-        else if ginput == 's' {
-            k.y += 1;
-        }
-        else if ginput == 'a' {
+        if ginput == 'a' {
             k.x = k.x + 1;
         }
-        else if ginput == 'd' {
+        if ginput == 's' {
+            k.y += 1;
+        }
+        if ginput == 'd' {
             k.x += 1;
         }
 
