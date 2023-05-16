@@ -1,5 +1,9 @@
+* Project Dead
+Rust is cancer.
+C# version of project coming soon...
+
 * Keegan's Game (kgame)
-WARNING: This project is in a =BETA= state and may not work as intended.
+WARNING: This project is in a =DEAD= state and may not work as intended.
 Looks like also the ncurses crate has issues but nothing I can do about it.
 
 ** Info
