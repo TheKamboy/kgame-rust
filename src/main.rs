@@ -13,6 +13,34 @@ struct Player {
     pub hudtext: String,
 }
 
+impl Player {
+    fn increase_x(&mut self) {
+        self.x += 1;
+    }
+    fn decrease_x(&mut self) {
+        self.x -= 1;
+    }
+    fn increase_y(&mut self) {
+        self.y += 1;
+    }
+    fn decrease_y(&mut self) {
+        self.y -= 1;
+    }
+    fn return_x(&mut self) -> i32 {
+        return self.x;
+    }
+    fn return_y(&mut self) -> i32 {
+        return self.y;
+    }
+    fn return_bx(&mut self) -> i32 {
+        return self.bx;
+    }
+    fn return_by(&mut self) -> i32 {
+        let mut _by = self.bx;
+        return _by;
+    }
+}
+
 fn new(x: i32, y: i32, symbol: String, hudtext: String) -> Player {
     Player { x: (x), y: (y), symbol: (symbol), bx: (x), by: (y), hudtext: hudtext.to_string() }
 }
@@ -204,26 +232,25 @@ fn chapter_1_intro(window: &Window) {
 }
 
 fn keegans_room_ch1(window: &Window) {
-    // I hate rust but i have to use it
     let mut k: Player = new(0, 0, "K".to_string(), "\"W A S D\" to move, \"E\" to examine when on E objects".to_string());
     let mut hudtext: String = k.hudtext;
+    let ksymbol: String = k.symbol;
     let debug = true;
     window.keypad(true);
     noecho();
     // Game Loop
     loop {
-        k = new(k.x, k.y, k.symbol, k.hudtext);
         window.clear();
         set_blink(false);
         if debug {
-            window.mvaddstr(0, 10, format!("X: {}, Y: {}", k.x, k.y));
-            window.mvaddstr(1, 10, format!("BX: {}, BY: {}", k.bx, k.by));
+            // window.mvaddstr(0, 10, format!("X: {}, Y: {}", k.bx, k.y));
+            // window.mvaddstr(1, 10, format!("BX: {}, BY: {}", k.bx, k.return_by()));
         }
 
         // Examine Points
         window.mvaddstr(15, 65, "E");
 
-        window.mvaddstr(k.y, k.x, k.symbol.as_str());
+        window.mvaddstr(k.return_y(), k.return_x(), ksymbol.as_str());
         window.mvaddstr(24, 0, hudtext.as_str());
         window.refresh();
 
@@ -238,32 +265,32 @@ fn keegans_room_ch1(window: &Window) {
         hudtext.clear();
 
         // Set backup x and y values
-        k.by = k.y;
-        k.bx = k.x;
+        k.by = k.return_y();
+        k.bx = k.return_x();
 
         // Movement
         if ginput == 'w' {
-            k.y -= 1;
+            k.decrease_y();
         }
         if ginput == 'a' {
-            k.x = k.x + 1;
+            k.increase_x();
         }
         if ginput == 's' {
-            k.y += 1;
+            k.increase_y();
         }
         if ginput == 'd' {
-            k.x += 1;
+            k.decrease_x();
         }
 
         // Borders
-        match k.x.cmp(&0) {
+        match k.return_x().cmp(&0) {
             Ordering::Less => { k.x = 0; }
             _ => {}
         } 
-        // if k.x < 0 || k.x > 79 {
+        // if kx < 0 || kx > 79 {
         //     k = move_player_back(k);
         // }
-        // else if k.y < 0 || k.y > 23 {
+        // else if ky < 0 || ky > 23 {
         //     k = move_player_back(k);
         // }
 
@@ -273,12 +300,16 @@ fn keegans_room_ch1(window: &Window) {
         }
         
         if ginput == 'e' {
-            if player_at_point(k, 65, 15) {
-                
-            }
+            
         }
     }
     endwin();
+}
+
+fn show_examine_msg_at_position(mut player: Player, x: i32, y: i32, msg: String) {
+    if player.x == x && player.y == y {
+        player.hudtext = msg;
+    }
 }
 
 fn player_at_point(player: Player, x: i32, y: i32) -> bool {
