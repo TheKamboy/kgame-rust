@@ -1,9 +1,8 @@
-* Project Dead
-Rust is cancer.
-C# version of project coming soon...
+* I'm back to rust
+I think I know what to do and other programming languages doesn't have the ncurses rust does so I'm back to this version.
 
 * Keegan's Game (kgame)
-WARNING: This project is in a =DEAD= state and may not work as intended.
+WARNING: This project is in a =ALPHA= state and may not work as intended.
 Looks like also the ncurses crate has issues but nothing I can do about it.
 
 ** Info
