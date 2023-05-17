@@ -1,5 +1,5 @@
-* I'm back to rust
-I think I know what to do and other programming languages doesn't have the ncurses rust does so I'm back to this version.
+* nvm
+it still giving me trouble so nope
 
 * Keegan's Game (kgame)
 WARNING: This project is in a =ALPHA= state and may not work as intended.
