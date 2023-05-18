@@ -13,6 +13,11 @@ struct Player {
     pub hudtext: String,
 }
 
+struct KeeganReturn {
+    pub bx: i32,
+    pub by: i32,
+}
+
 impl Player {
     fn increase_x(&mut self) {
         self.x += 1;
@@ -232,9 +237,12 @@ fn chapter_1_intro(window: &Window) {
 }
 
 fn keegans_room_ch1(window: &Window) {
-    let mut k: Player = new(0, 0, "K".to_string(), "\"W A S D\" to move, \"E\" to examine when on E objects".to_string());
-    let mut hudtext: String = k.hudtext;
-    let ksymbol: String = k.symbol;
+    let mut hudtext: String = "\"W A S D\" to move, \"E\" to examine when on E objects".to_string();
+    let ksymbol: String = "K".to_string();
+    let mut kx: i32 = 0;
+    let mut ky: i32 = 0;
+    let mut kbx: i32 = kx;
+    let mut kby: i32 = ky;
     let debug = true;
     window.keypad(true);
     noecho();
@@ -250,7 +258,7 @@ fn keegans_room_ch1(window: &Window) {
         // Examine Points
         window.mvaddstr(15, 65, "E");
 
-        window.mvaddstr(k.return_y(), k.return_x(), ksymbol.as_str());
+        window.mvaddstr(ky, kx, ksymbol.as_str());
         window.mvaddstr(24, 0, hudtext.as_str());
         window.refresh();
 
@@ -265,51 +273,57 @@ fn keegans_room_ch1(window: &Window) {
         hudtext.clear();
 
         // Set backup x and y values
-        k.by = k.return_y();
-        k.bx = k.return_x();
+        kbx = kx;
+        kby = ky;
 
         // Movement
         if ginput == 'w' {
-            k.decrease_y();
-        }
-        if ginput == 'a' {
-            k.increase_x();
-        }
-        if ginput == 's' {
-            k.increase_y();
+            ky -= 1;
         }
         if ginput == 'd' {
-            k.decrease_x();
+            kx += 1;
+        }
+        if ginput == 's' {
+            ky += 1;
+        }
+        if ginput == 'a' {
+            kx -= 1;
         }
 
-        // Borders
-        match k.return_x().cmp(&0) {
-            Ordering::Less => { k.x = 0; }
-            _ => {}
-        } 
-        // if kx < 0 || kx > 79 {
-        //     k = move_player_back(k);
-        // }
-        // else if ky < 0 || ky > 23 {
-        //     k = move_player_back(k);
-        // }
+        if kx < 0 || kx > 79 {
+            kx = move_x_back(kbx);
+        }
+        else if ky < 0 || ky > 23 {
+            ky = move_y_back(kby);
+        }
 
         // Detect Examine Point Position
-        if player_at_point(k, 65, 15) {
+        if at_point(kx, ky, 65, 15) {
             hudtext = "Press E to examine.".to_string();
         }
         
         if ginput == 'e' {
-            
+            if at_point(kx, ky, 65, 15) {
+                hudtext = "Keegan: This room is empty.".to_string();
+            }
         }
     }
     endwin();
 }
 
-fn show_examine_msg_at_position(mut player: Player, x: i32, y: i32, msg: String) {
-    if player.x == x && player.y == y {
-        player.hudtext = msg;
+fn at_point(x: i32, y: i32, x2: i32, y2: i32) -> bool {
+    if x == x2 && y == y2 {
+        return true;
     }
+    return false;
+}
+
+fn move_x_back(bx: i32) -> i32 {
+    return bx;
+}
+
+fn move_y_back(by: i32) -> i32 {
+    return by;
 }
 
 fn player_at_point(player: Player, x: i32, y: i32) -> bool {

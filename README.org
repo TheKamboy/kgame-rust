@@ -1,5 +1,5 @@
-* nvm
-it still giving me trouble so nope
+* I'm back!
+I finally grew a brain and fixed the issue!
 
 * Keegan's Game (kgame)
 WARNING: This project is in a =ALPHA= state and may not work as intended.
