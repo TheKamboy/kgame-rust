@@ -1,6 +1,3 @@
-* I'm back!
-I finally grew a brain and fixed the issue!
-
 * Keegan's Game (kgame)
 WARNING: This project is in a =ALPHA= state and may not work as intended.
 Looks like also the ncurses crate has issues but nothing I can do about it.

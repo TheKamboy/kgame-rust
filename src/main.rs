@@ -239,8 +239,8 @@ fn chapter_1_intro(window: &Window) {
 fn keegans_room_ch1(window: &Window) {
     let mut hudtext: String = "\"W A S D\" to move, \"E\" to examine when on E objects".to_string();
     let ksymbol: String = "K".to_string();
-    let mut kx: i32 = 0;
-    let mut ky: i32 = 0;
+    let mut kx: i32 = 39;
+    let mut ky: i32 = 11;
     let mut kbx: i32 = kx;
     let mut kby: i32 = ky;
     let debug = true;
@@ -256,10 +256,13 @@ fn keegans_room_ch1(window: &Window) {
         }
 
         // Examine Points
-        window.mvaddstr(15, 65, "E");
+        window.mvaddstr(15, 65, "E"); // Examine Point
 
-        window.mvaddstr(ky, kx, ksymbol.as_str());
-        window.mvaddstr(24, 0, hudtext.as_str());
+        // Room (Middle Coords: 39, 11)
+
+
+        window.mvaddstr(ky, kx, ksymbol.as_str()); // Keegan
+        window.mvaddstr(24, 0, hudtext.as_str());  // HUD
         window.refresh();
 
         let ginput: char;
