@@ -202,17 +202,19 @@ fn chapter_1_intro(window: &Window) {
 
         dialogue += 1;
     }
-    keegans_room_ch1(window);
+    keegans_room_ch1(window, 39, 11, true);
 }
 
-fn keegans_room_ch1(window: &Window) {
-    // TODO Be able to enter another room.
-    // TODO Move Examine Point and change MSG
-
+fn keegans_room_ch1(window: &Window, x: i32, y: i32, showinfoonhud: bool) {
     let mut hudtext: String = "\"W A S D\" to move, \"E\" to examine when on E objects, Walk on \"D\" to exit room.".to_string();
+
+    if !showinfoonhud {
+        hudtext.clear();
+    }
+
     let ksymbol: String = "K".to_string();
-    let mut kx: i32 = 39;
-    let mut ky: i32 = 11;
+    let mut kx: i32 = x;
+    let mut ky: i32 = y;
     let mut kbx: i32 = kx;
     let mut kby: i32 = ky;
     let debug = true;
@@ -318,7 +320,7 @@ fn keegans_room_ch1(window: &Window) {
 
         // Detect Entering Door
         if at_point(kx, ky, 29, 11) {
-            // TODO Add Hallway to Elevator
+            fb_hallway1_ch1(window);
         }
 
         // Examine Key
@@ -329,6 +331,80 @@ fn keegans_room_ch1(window: &Window) {
         }
     }
     endwin();
+}
+
+fn fb_hallway1_ch1(window: &Window) {
+    let mut hudtext: String = "".to_string();
+    let ksymbol: String = "K".to_string();
+    let mut kx: i32 = 48;
+    let mut ky: i32 = 11;
+    let mut kbx: i32 = kx;
+    let mut kby: i32 = ky;
+    let debug = true;
+    window.keypad(true);
+    noecho();
+    // Game Loop
+    loop {
+        window.clear();
+        set_blink(false);
+        if debug {
+            window.mvaddstr(0, 10, format!("X: {}, Y: {}", kx, ky));
+            window.mvaddstr(1, 10, format!("BX: {}, BY: {}", kbx, kby));
+        }
+        window.mvaddstr(11, 49, "D");
+
+        window.mvaddstr(ky, kx, ksymbol.as_str()); // Keegan
+        window.mvaddstr(24, 0, hudtext.as_str());  // HUD
+        window.refresh();
+
+        let ginput: char;
+        match window.getch() {
+            Some(Input::Character(c)) => { ginput = c; },
+            Some(Input::KeyDC) => break,
+            Some(_input) => {ginput = ' '},
+            None => {ginput = ' '}
+        }
+
+        hudtext.clear();
+
+        // Set backup x and y values
+        kbx = kx;
+        kby = ky;
+
+        // Movement
+        if ginput == 'w' {
+            ky -= 1;
+        }
+        if ginput == 'd' {
+            kx += 1;
+        }
+        if ginput == 's' {
+            ky += 1;
+        }
+        if ginput == 'a' {
+            kx -= 1;
+        }
+
+        // Barrier
+        if kx < 0 || kx > 79 {
+            kx = move_x_back(kbx);
+        }
+        else if ky < 0 || ky > 23 {
+            ky = move_y_back(kby);
+        }
+
+        // Detect Entering Door
+        if at_point(kx, ky, 49, 11) {
+            keegans_room_ch1(window, 30, 11, false);
+        }
+
+        // Examine Key
+        if ginput == 'e' {
+            if at_point(kx, ky, 45, 11) {
+                hudtext = "Keegan: This is my computer. It's only for work.".to_string();
+            }
+        }
+    }
 }
 
 fn at_point(x: i32, y: i32, x2: i32, y2: i32) -> bool {

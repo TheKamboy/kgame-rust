@@ -21,3 +21,9 @@ Make sure you have [[https://www.rust-lang.org/][Rust]] installed before doing t
 1) Clone the source code by running this command: ~git clone https://github.com/TheKamboy/kgame-rust.git~
 2) Check Cargo.toml to make sure the packages are correct. (ex: Windows should have ~ncurses-rs~ commented and ~pdcurses-sys~ uncommented, Linux should have ~pdcurses~ commented, and ~ncurses-rs~ uncommented.)
 3) Run the command ~cargo run~ and see if it will build completely.
+
+* Code Info
+** Packages
+~pancurses 0.17~
+~pdcurses-sys 0.7~
+~ncurses-rs 0.0.3~
