@@ -228,7 +228,7 @@ fn keegans_room_ch1(window: &Window) {
         }
 
         // Examine Points
-        window.mvaddstr(15, 65, "E"); // Examine Point
+        window.mvaddstr(11, 45, "E"); // Examine Point
 
         // Room (Middle Coords: 11, 39) (Corner Y: 13, 9)
         window.mvaddstr(11, 29, "D");
@@ -241,6 +241,10 @@ fn keegans_room_ch1(window: &Window) {
         window.mvaddstr(12, 49, "#");
         window.mvaddstr(10, 49, "#");
         window.mvaddstr(9, 49, "#");
+        // Table
+        window.mvaddstr(10, 46, "---");
+        window.mvaddstr(11, 46, "|[]");
+        window.mvaddstr(12, 46, "---");
 
         window.mvaddstr(ky, kx, ksymbol.as_str()); // Keegan
         window.mvaddstr(24, 0, hudtext.as_str());  // HUD
@@ -285,6 +289,19 @@ fn keegans_room_ch1(window: &Window) {
         }
 
         // (X1: 30, X2: 48)
+        if kx >= 30 && kx <= 48 {
+            if ky == 13 || ky == 9 {
+                kx = move_x_back(kbx);
+                ky = move_y_back(kby);
+            }
+        }
+
+        // Table Barriers
+        // X: 46-48, Y: 10-12
+        if kx >= 46 && kx <= 48 && ky >= 10 && ky <= 12 {
+            kx = move_x_back(kbx);
+            ky = move_y_back(kby);
+        }
 
         // Barrier
         if kx < 0 || kx > 79 {
@@ -295,13 +312,19 @@ fn keegans_room_ch1(window: &Window) {
         }
 
         // Detect Examine Point Position
-        if at_point(kx, ky, 65, 15) {
+        if at_point(kx, ky, 45, 11) {
             hudtext = "Press E to examine.".to_string();
         }
-        
+
+        // Detect Entering Door
+        if at_point(kx, ky, 29, 11) {
+            // TODO Add Hallway to Elevator
+        }
+
+        // Examine Key
         if ginput == 'e' {
-            if at_point(kx, ky, 65, 15) {
-                hudtext = "Keegan: Why is this place so empty?".to_string();
+            if at_point(kx, ky, 45, 11) {
+                hudtext = "Keegan: This is my computer. It's only for work.".to_string();
             }
         }
     }
