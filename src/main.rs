@@ -351,8 +351,30 @@ fn fb_hallway1_ch1(window: &Window) {
             window.mvaddstr(0, 10, format!("X: {}, Y: {}", kx, ky));
             window.mvaddstr(1, 10, format!("BX: {}, BY: {}", kbx, kby));
         }
+
+        // Hallway
+        window.mvaddstr(13, 49, "#");
+        window.mvaddstr(12, 49, "#");
+        window.mvaddstr(10, 49, "#");
+        window.mvaddstr(9, 49, "#");
+
+        window.mvaddstr(13, 29, "#");
+        window.mvaddstr(9, 29, "#");
+
+        // Hallway Doors (X: 29)
         window.mvaddstr(11, 49, "D");
 
+        let mut i: i32 = 47;
+
+        while i != 29 {
+            if i != 39 {
+                window.mvaddstr(9, i, "D");
+                window.mvaddstr(13, i, "D");
+            }
+            i -= 2;
+        }
+
+        // Other Game Elements
         window.mvaddstr(ky, kx, ksymbol.as_str()); // Keegan
         window.mvaddstr(24, 0, hudtext.as_str());  // HUD
         window.refresh();
