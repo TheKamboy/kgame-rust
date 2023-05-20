@@ -369,8 +369,8 @@ fn fb_hallway1_ch1(window: &Window) {
         while i != 29 {
             if i != 39 {
                 window.mvaddstr(9, i, "D");
-                window.mvaddstr(13, i, "D");
             }
+            window.mvaddstr(13, i, "D");
             i -= 2;
         }
 

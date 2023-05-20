@@ -28,7 +28,7 @@ Make sure you have [[https://www.rust-lang.org/][Rust]] installed before doing t
 ~pdcurses-sys 0.7~
 ~ncurses-rs 0.0.3~
 
-* PROJ Todos
+* Todos
 ** TODO Chapter 1
 You learn a tiny bit about Keegan and his brother, Kameron
 *** TODO Finish 2 Hallways
