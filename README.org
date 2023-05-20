@@ -1,8 +1,23 @@
-* Keegan's Game (kgame)
-WARNING: This project is in a =ALPHA= state and may not work as intended.
-Looks like also the ncurses crate has issues but nothing I can do about it.
+#+TITLE: Keegan's Game (kgame)
+#+AUTHOR: TheKamboy
+#+DATE: <2023-05-20 Sat>
 
-** Info
+WARNING: This project is in a =ALPHA= state and may not work as intended.
+Packages may get changed based on where I'm working on this (ex: Windows, Linux)
+
+* Info
 This is just a small project I'm working on and may become something in the future.
 
 It's based on a game me and my older brother (Keegan) would play outside when I was younger.
+* How to Play
+You have 2 options on how to play.
+
+** Option 1
+Go into [[https://github.com/TheKamboy/kgame-rust/releases][Releases]], then select the version you want.
+Later on I will add more builds for different systems.
+** Option 2
+Make sure you have [[https://www.rust-lang.org/][Rust]] installed before doing this option.
+
+1) Clone the source code by running this command: ~git clone https://github.com/TheKamboy/kgame-rust.git~
+2) Check Cargo.toml to make sure the packages are correct. (ex: Windows should have ~ncurses-rs~ commented and ~pdcurses-sys~ uncommented, Linux should have "pdcurses" commented, and "ncurses-rs" uncommented.)
+3) Run the command ~cargo run~ and see if it will build completely.
