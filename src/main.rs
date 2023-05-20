@@ -295,7 +295,7 @@ fn keegans_room_ch1(window: &Window) {
         
         if ginput == 'e' {
             if at_point(kx, ky, 65, 15) {
-                hudtext = "Keegan: This room is empty.".to_string();
+                hudtext = "Keegan: Why is this place so empty?".to_string();
             }
         }
     }
