@@ -1,7 +1,7 @@
 extern crate pancurses;
 
-use pancurses::*;
-use std::cmp::Ordering;
+pub use pancurses::*;
+
 
 // Who you play as lol
 struct Player {
@@ -13,45 +13,14 @@ struct Player {
     pub hudtext: String,
 }
 
-struct KeeganReturn {
-    pub bx: i32,
-    pub by: i32,
-}
-
-impl Player {
-    fn increase_x(&mut self) {
-        self.x += 1;
-    }
-    fn decrease_x(&mut self) {
-        self.x -= 1;
-    }
-    fn increase_y(&mut self) {
-        self.y += 1;
-    }
-    fn decrease_y(&mut self) {
-        self.y -= 1;
-    }
-    fn return_x(&mut self) -> i32 {
-        return self.x;
-    }
-    fn return_y(&mut self) -> i32 {
-        return self.y;
-    }
-    fn return_bx(&mut self) -> i32 {
-        return self.bx;
-    }
-    fn return_by(&mut self) -> i32 {
-        let mut _by = self.bx;
-        return _by;
-    }
-}
-
 fn new(x: i32, y: i32, symbol: String, hudtext: String) -> Player {
     Player { x: (x), y: (y), symbol: (symbol), bx: (x), by: (y), hudtext: hudtext.to_string() }
 }
 
 fn main() {
     let window = initscr();
+    
+    resize_term(25, 80);
     set_title("Keegan's Game");
 
     // 0: Start Game, 1: Info, 2: Exit, 20: Call Link
@@ -59,26 +28,26 @@ fn main() {
     loop {
         loop {
             window.clear();
-            window.mvaddstr(0, 0, " Keegan's Game\n\n");
+            window.mvaddstr(0, 0, "  Keegan's Game\n\n");
             if menuvar == 20 {
                 window.mvaddstr(22, 0, "Info in link: https://github.com/TheKamboy/kgame-rust/blob/master/README.org");
                 menuvar = 1;
             }
     
             if menuvar == 0 {
-                window.mvaddstr(2, 0, "> Start Game <\n");
-                window.mvaddstr(3, 0, "     Info     \n");
-                window.mvaddstr(4, 0, "     Exit     \n");
+                window.mvaddstr(2, 0, " > Start Game <\n");
+                window.mvaddstr(3, 0, "      Info     \n");
+                window.mvaddstr(4, 0, "      Exit     \n");
             }
             else if menuvar == 1 {
-                window.mvaddstr(2, 0, "  Start Game  \n");
-                window.mvaddstr(3, 0, ">    Info    <\n");
-                window.mvaddstr(4, 0, "     Exit     \n");
+                window.mvaddstr(2, 0, "   Start Game  \n");
+                window.mvaddstr(3, 0, " >    Info    <\n");
+                window.mvaddstr(4, 0, "      Exit     \n");
             }
             else if menuvar == 2 {
-                window.mvaddstr(2, 0, "  Start Game  \n");
-                window.mvaddstr(3, 0, "     Info     \n");
-                window.mvaddstr(4, 0, ">    Exit    <\n");
+                window.mvaddstr(2, 0, "   Start Game  \n");
+                window.mvaddstr(3, 0, "      Info     \n");
+                window.mvaddstr(4, 0, " >    Exit    <\n");
             }
     
             window.mvaddstr(24, 0, "W: Up, S: Down, E: Select");
@@ -237,7 +206,10 @@ fn chapter_1_intro(window: &Window) {
 }
 
 fn keegans_room_ch1(window: &Window) {
-    let mut hudtext: String = "\"W A S D\" to move, \"E\" to examine when on E objects".to_string();
+    // TODO Be able to enter another room.
+    // TODO Move Examine Point and change MSG
+
+    let mut hudtext: String = "\"W A S D\" to move, \"E\" to examine when on E objects, Walk on \"D\" to exit room.".to_string();
     let ksymbol: String = "K".to_string();
     let mut kx: i32 = 39;
     let mut ky: i32 = 11;
@@ -251,15 +223,24 @@ fn keegans_room_ch1(window: &Window) {
         window.clear();
         set_blink(false);
         if debug {
-            // window.mvaddstr(0, 10, format!("X: {}, Y: {}", k.bx, k.y));
-            // window.mvaddstr(1, 10, format!("BX: {}, BY: {}", k.bx, k.return_by()));
+            window.mvaddstr(0, 10, format!("X: {}, Y: {}", kx, ky));
+            window.mvaddstr(1, 10, format!("BX: {}, BY: {}", kbx, kby));
         }
 
         // Examine Points
         window.mvaddstr(15, 65, "E"); // Examine Point
 
-        // Room (Middle Coords: 39, 11)
-
+        // Room (Middle Coords: 11, 39) (Corner Y: 13, 9)
+        window.mvaddstr(11, 29, "D");
+        window.mvaddstr(11, 49, "#");
+        window.mvaddstr(10, 29, "#");
+        window.mvaddstr(12, 29, "#");
+        window.mvaddstr(13, 29, "#####################");
+        window.mvaddstr(9, 29, "#####################");
+        window.mvaddstr(13, 49, "#");
+        window.mvaddstr(12, 49, "#");
+        window.mvaddstr(10, 49, "#");
+        window.mvaddstr(9, 49, "#");
 
         window.mvaddstr(ky, kx, ksymbol.as_str()); // Keegan
         window.mvaddstr(24, 0, hudtext.as_str());  // HUD
@@ -293,6 +274,13 @@ fn keegans_room_ch1(window: &Window) {
             kx -= 1;
         }
 
+        // Wall Barriers
+        if kx == 29 && ky <= 13 && ky >= 9 && ky != 11 {
+            kx = move_x_back(kbx);
+            ky = move_y_back(kby);
+        }
+
+        // Barrier
         if kx < 0 || kx > 79 {
             kx = move_x_back(kbx);
         }
@@ -321,22 +309,12 @@ fn at_point(x: i32, y: i32, x2: i32, y2: i32) -> bool {
     return false;
 }
 
-fn move_x_back(bx: i32) -> i32 {
-    return bx;
+fn move_x_back(kbx: i32) -> i32 {
+    return kbx;
 }
 
-fn move_y_back(by: i32) -> i32 {
-    return by;
-}
-
-fn player_at_point(player: Player, x: i32, y: i32) -> bool {
-    let mut boolean = false;
-    
-    if player.x == x && player.y == y {
-        boolean = true;
-    }
-
-    return boolean;
+fn move_y_back(kby: i32) -> i32 {
+    return kby;
 }
 
 fn test(window: &Window) {
