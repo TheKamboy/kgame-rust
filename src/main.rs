@@ -279,6 +279,12 @@ fn keegans_room_ch1(window: &Window) {
             kx = move_x_back(kbx);
             ky = move_y_back(kby);
         }
+        if kx == 49 && ky <= 13 && ky >= 9 {
+            kx = move_x_back(kbx);
+            ky = move_y_back(kby)
+        }
+
+        // (X1: 30, X2: 48)
 
         // Barrier
         if kx < 0 || kx > 79 {
