@@ -4,6 +4,7 @@ pub use pancurses::*;
 
 
 // Who you play as lol
+// Not used anymore lol
 struct Player {
     pub x: i32,
     pub y: i32,
