@@ -35,5 +35,5 @@ You learn a tiny bit about Keegan and his brother, Kameron
 Hallway with Rooms, and hallway with Kameron's Tech Room
 *** WAIT Add Second Cutscene
 Cutscene that plays in Kameron's Tech Room.
-** TODO Chapter 2
+** WAIT Chapter 2
 Keegan goes through his brothers time machine and gets a new experience on the world.
