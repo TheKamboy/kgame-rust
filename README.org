@@ -31,7 +31,9 @@ Make sure you have [[https://www.rust-lang.org/][Rust]] installed before doing t
 * Todos
 ** TODO Chapter 1
 You learn a tiny bit about Keegan and his brother, Kameron
-*** TODO Finish 2 Hallways
+*** TODO Make Tutorial Map
+You will understand the game better.
+*** WAIT Finish 2 Hallways
 Hallway with Rooms, and hallway with Kameron's Tech Room
 *** WAIT Add Second Cutscene
 Cutscene that plays in Kameron's Tech Room.
