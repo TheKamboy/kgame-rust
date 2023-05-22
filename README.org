@@ -5,8 +5,6 @@
 #+AUTHOR: TheKamboy
 #+DATE: <2023-05-20 Sat>
 
-[[https://raw.githubusercontent.com/TheKamboy/kgame-rust/master/assets/gifs/gif1.gif]]
-
 WARNING: This project is in a =ALPHA= state and may not work as intended.
 Packages may get changed based on where I'm working on this (ex: Windows, Linux)
 
@@ -38,7 +36,7 @@ Make sure you have [[https://www.rust-lang.org/][Rust]] installed before doing t
 You learn a tiny bit about Keegan and his brother, Kameron
 *** WAIT Make Tutorial Map
 You will understand the game better.
-*** TODO Finish 2 Hallways
+*** DONE Finish 2 Hallways
 Hallway with Rooms, and hallway with Kameron's Tech Room
 *** WAIT Add Second Cutscene
 Cutscene that plays in Kameron's Tech Room.
