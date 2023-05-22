@@ -1,8 +1,11 @@
+:PROPERTIES:
+:ID:       7a87948d-f1e6-4b7d-ad75-49366a84f0a6
+:END:
 #+TITLE: Keegan's Game (kgame)
 #+AUTHOR: TheKamboy
 #+DATE: <2023-05-20 Sat>
 
-
+[[https://raw.githubusercontent.com/TheKamboy/kgame-rust/master/assets/gifs/gif1.gif]]
 
 WARNING: This project is in a =ALPHA= state and may not work as intended.
 Packages may get changed based on where I'm working on this (ex: Windows, Linux)
