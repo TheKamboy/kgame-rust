@@ -2,7 +2,6 @@ extern crate pancurses;
 
 pub use pancurses::*;
 
-
 // Who you play as lol
 // Not used anymore lol
 struct Player {
@@ -20,7 +19,7 @@ fn new(x: i32, y: i32, symbol: String, hudtext: String) -> Player {
 
 fn main() {
     let window = initscr();
-    
+
     resize_term(25, 80);
     set_title("Keegan's Game");
 
@@ -211,6 +210,7 @@ fn keegans_room_ch1(window: &Window, x: i32, y: i32, showinfoonhud: bool) {
 
     if !showinfoonhud {
         hudtext.clear();
+        hudtext = "Keegan's Room".to_string();
     }
 
     let ksymbol: String = "K".to_string();
@@ -261,7 +261,7 @@ fn keegans_room_ch1(window: &Window, x: i32, y: i32, showinfoonhud: bool) {
             None => {ginput = ' '}
         }
         
-        hudtext.clear();
+        hudtext = "Keegan's Room".to_string();
 
         // Set backup x and y values
         kbx = kx;
@@ -335,7 +335,7 @@ fn keegans_room_ch1(window: &Window, x: i32, y: i32, showinfoonhud: bool) {
 }
 
 fn fb_hallway1_ch1(window: &Window) {
-    let mut hudtext: String = "".to_string();
+    let mut hudtext: String = "Hallway".to_string();
     let ksymbol: String = "K".to_string();
     let mut kx: i32 = 48;
     let mut ky: i32 = 11;
@@ -358,9 +358,15 @@ fn fb_hallway1_ch1(window: &Window) {
         window.mvaddstr(12, 49, "#");
         window.mvaddstr(10, 49, "#");
         window.mvaddstr(9, 49, "#");
-
+        window.mvaddstr(8, 38, "#");
+        window.mvaddstr(8, 40, "#");
+        window.mvaddstr(13, 29, "####################");
+        window.mvaddstr(9, 29, "########## #########");
         window.mvaddstr(13, 29, "#");
         window.mvaddstr(9, 29, "#");
+        window.mvaddstr(10, 29, "#");
+        window.mvaddstr(11, 29, "#");
+        window.mvaddstr(12, 29, "#");
 
         // Hallway Doors (X: 29)
         window.mvaddstr(11, 49, "D");
@@ -388,7 +394,7 @@ fn fb_hallway1_ch1(window: &Window) {
             None => {ginput = ' '}
         }
 
-        hudtext.clear();
+        hudtext = "Hallway".to_string();
 
         // Set backup x and y values
         kbx = kx;
@@ -408,6 +414,24 @@ fn fb_hallway1_ch1(window: &Window) {
             kx -= 1;
         }
 
+        // Wall Barriers
+        if kx == 29 && ky <= 13 && ky >= 9 {
+            kx = move_x_back(kbx);
+            ky = move_y_back(kby);
+        }
+        if kx == 49 && ky <= 13 && ky >= 9 && ky != 11 {
+            kx = move_x_back(kbx);
+            ky = move_y_back(kby)
+        }
+
+        // (X1: 30, X2: 48)
+        if kx >= 30 && kx <= 48 && kx != 39 {
+            if ky == 13 || ky == 9 {
+                kx = move_x_back(kbx);
+                ky = move_y_back(kby);
+            }
+        }
+
         // Barrier
         if kx < 0 || kx > 79 {
             kx = move_x_back(kbx);
@@ -421,11 +445,9 @@ fn fb_hallway1_ch1(window: &Window) {
             keegans_room_ch1(window, 30, 11, false);
         }
 
-        // Examine Key
-        if ginput == 'e' {
-            if at_point(kx, ky, 45, 11) {
-                hudtext = "Keegan: This is my computer. It's only for work.".to_string();
-            }
+        // Detect Entering Elevator
+        if at_point(39, 8, kx, ky) {
+
         }
     }
 }
