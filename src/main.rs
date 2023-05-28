@@ -495,12 +495,18 @@ fn elevator_ch1(window: &Window, location: i32) {
         window.mvaddstr(12, 40, "#");
 
         // Walls (Side Walls Y: 10-8)
-        window.mvaddstr(10, 37, "#");
-        window.mvaddstr(10, 41, "#");
         window.mvaddstr(11, 37, "#");
+        window.mvaddstr(10, 37, "#");
+        window.mvaddstr(9, 37, "#");
+        window.mvaddstr(8, 37, "#");
         window.mvaddstr(11, 41, "#");
+        window.mvaddstr(10, 41, "#");
+        window.mvaddstr(9, 41, "#");
+        window.mvaddstr(8, 41, "#");
+        window.mvaddstr(8, 38, "###");
 
         // Examine Point
+        window.mvaddstr(10, 38, "E"); // Is controls for elevator
 
         // Other Game Elements
         window.mvaddstr(ky, kx, ksymbol.as_str()); // Keegan
@@ -517,7 +523,7 @@ fn elevator_ch1(window: &Window, location: i32) {
             None => ginput = ' ',
         }
 
-        hudtext = "Hallway".to_string();
+        hudtext = "Elevator".to_string();
 
         // Set backup x and y values
         kbx = kx;
