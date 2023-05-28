@@ -77,24 +77,15 @@ Make sure you have [Rust](https://www.rust-lang.org/) installed before doing thi
 
 You learn a tiny bit about Keegan and his brother, Kameron
 
-
-<a id="orga3e0879"></a>
-
-### [ ] Make Tutorial Map
+[ ] Make Tutorial Map
 
 You will understand the game better.
 
-
-<a id="org728011b"></a>
-
-### [X] Finish 2 Hallways
+[X] Finish 2 Hallways
 
 Hallway with Rooms, and hallway with Kameron&rsquo;s Tech Room
 
-
-<a id="orgffdd326"></a>
-
-### [ ] Add Second Cutscene
+[ ] Add Second Cutscene
 
 Cutscene that plays in Kameron&rsquo;s Tech Room.
 
@@ -102,6 +93,5 @@ Cutscene that plays in Kameron&rsquo;s Tech Room.
 <a id="org7755011"></a>
 
 ## Chapter 2
-
 Keegan goes through his brothers time machine and gets a new experience on the world.
 
