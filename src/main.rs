@@ -500,6 +500,8 @@ fn elevator_ch1(window: &Window, location: i32) {
         window.mvaddstr(11, 37, "#");
         window.mvaddstr(11, 41, "#");
 
+        // Examine Point
+
         // Other Game Elements
         window.mvaddstr(ky, kx, ksymbol.as_str()); // Keegan
         window.mvaddstr(24, 0, hudtext.as_str()); // HUD
