@@ -465,7 +465,7 @@ fn fb_hallway1_ch1(window: &Window, x: i32, y: i32) {
     }
 }
 
-fn elevator_ch1(window: &Window, location: i32) {
+fn elevator_ch1(window: &Window, mut location: i32) {
     // Location: 1=Hallway near Keegan's Room, 2=Hallway near Tech Room
     let mut hudtext: String = "Hallway".to_string();
     let ksymbol: String = "K".to_string();
@@ -543,11 +543,102 @@ fn elevator_ch1(window: &Window, location: i32) {
             kx -= 1;
         }
 
+        // Wall Barriers
+        if kx == 38 || kx == 40 {
+            if ky == 12 {
+                kx = move_x_back(kbx);
+                ky = move_y_back(kby);
+            }
+        }
+
+        if kx >= 37 && kx <= 41 && kx != 39 && ky == 11 {
+            kx = move_x_back(kbx);
+            ky = move_y_back(kby);
+        }
+
+        // (X1: 37, X2: 41) (Y: 10-8)
+        if kx == 37 || kx == 41 {
+            if ky >= 8 && ky <= 10 {
+                kx = move_x_back(kbx);
+                ky = move_y_back(kby);
+            }
+        }
+
+        // X: 38-40
+        if kx >= 38 && kx <= 40 && ky == 8 {
+            kx = move_x_back(kbx);
+            ky = move_y_back(kby);
+        }
+
         // Barrier
         if kx < 0 || kx > 79 {
             kx = move_x_back(kbx);
         } else if ky < 0 || ky > 23 {
             ky = move_y_back(kby);
+        }
+
+        if at_point(38, 10, kx, ky) {
+            hudtext = "Press E to examine.".to_string();
+        }
+
+        if ginput == 'e' {
+            if at_point(38, 10, kx, ky) {
+                let mut emenunum: i32 = 0;
+                loop {
+                    window.clear();
+                    window.mvaddstr(0, 0, "     Elevator Menu\n\n");
+
+                    if emenunum == 0 {
+                        if location == 1 {
+                            window.mvaddstr(2, 0, " >    Lower Floor*    <\n");
+                            window.mvaddstr(3, 0, "      Upper Floor      \n");
+                        } else {
+                            window.mvaddstr(2, 0, " >    Lower Floor     <\n");
+                            window.mvaddstr(3, 0, "      Upper Floor*     \n");
+                        }
+
+                        //window.mvaddstr(4, 0, "     Exit     \n");
+                    } else if emenunum == 1 {
+                        if location == 1 {
+                            window.mvaddstr(2, 0, "      Lower Floor*     \n");
+                            window.mvaddstr(3, 0, " >    Upper Floor     <\n");
+                        } else {
+                            window.mvaddstr(2, 0, "      Lower Floor      \n");
+                            window.mvaddstr(3, 0, " >    Upper Floor*    <\n");
+                        }
+                    }
+
+                    window.mvaddstr(24, 0, "W: Up, S: Down, E: Select");
+
+                    let ginput: char;
+                    match window.getch() {
+                        Some(Input::Character(c)) => {
+                            ginput = c;
+                        }
+                        Some(_input) => ginput = ' ',
+                        None => ginput = ' ',
+                    }
+
+                    if ginput == 'w' {
+                        emenunum -= 1;
+
+                        if emenunum < 0 {
+                            emenunum = 0;
+                        }
+                    } else if ginput == 's' {
+                        emenunum += 1;
+
+                        if emenunum > 1 {
+                            emenunum = 1;
+                        }
+                    } else if ginput == 'e' {
+                        break;
+                    }
+                }
+                if emenunum + 1 != location {
+                    location = emenunum + 1;
+                }
+            }
         }
 
         // Detect Exiting Elevator
