@@ -14,7 +14,14 @@ struct Player {
 }
 
 fn new(x: i32, y: i32, symbol: String, hudtext: String) -> Player {
-    Player { x: (x), y: (y), symbol: (symbol), bx: (x), by: (y), hudtext: hudtext.to_string() }
+    Player {
+        x: (x),
+        y: (y),
+        symbol: (symbol),
+        bx: (x),
+        by: (y),
+        hudtext: hudtext.to_string(),
+    }
 }
 
 fn main() {
@@ -30,67 +37,66 @@ fn main() {
             window.clear();
             window.mvaddstr(0, 0, "  Keegan's Game\n\n");
             if menuvar == 20 {
-                window.mvaddstr(22, 0, "Info in link: https://github.com/TheKamboy/kgame-rust/blob/master/README.org");
+                window.mvaddstr(
+                    22,
+                    0,
+                    "Info in link: https://github.com/TheKamboy/kgame-rust/blob/master/README.org",
+                );
                 menuvar = 1;
             }
-    
+
             if menuvar == 0 {
                 window.mvaddstr(2, 0, " > Start Game <\n");
                 window.mvaddstr(3, 0, "      Info     \n");
                 window.mvaddstr(4, 0, "      Exit     \n");
-            }
-            else if menuvar == 1 {
+            } else if menuvar == 1 {
                 window.mvaddstr(2, 0, "   Start Game  \n");
                 window.mvaddstr(3, 0, " >    Info    <\n");
                 window.mvaddstr(4, 0, "      Exit     \n");
-            }
-            else if menuvar == 2 {
+            } else if menuvar == 2 {
                 window.mvaddstr(2, 0, "   Start Game  \n");
                 window.mvaddstr(3, 0, "      Info     \n");
                 window.mvaddstr(4, 0, " >    Exit    <\n");
             }
-    
+
             window.mvaddstr(24, 0, "W: Up, S: Down, E: Select");
-    
+
             let ginput: char;
             match window.getch() {
-                Some(Input::Character(c)) => { ginput = c; },
-                Some(_input) => {ginput = ' '},
-                None => {ginput = ' '}
+                Some(Input::Character(c)) => {
+                    ginput = c;
+                }
+                Some(_input) => ginput = ' ',
+                None => ginput = ' ',
             }
-    
+
             if ginput == 'w' {
                 menuvar -= 1;
-    
+
                 if menuvar < 0 {
                     menuvar = 0;
                 }
-            }
-            else if ginput == 's' {
+            } else if ginput == 's' {
                 menuvar += 1;
-    
+
                 if menuvar > 2 {
                     menuvar = 2;
                 }
-            }
-            else if ginput == 'e' {
+            } else if ginput == 'e' {
                 break;
             }
         }
         if menuvar == 0 {
             break;
-        }
-        else if menuvar == 1 {
+        } else if menuvar == 1 {
             menuvar = 20;
-        }
-        else if menuvar == 2 {
+        } else if menuvar == 2 {
             break;
         }
     }
     if menuvar == 0 {
         chapter_select(&window);
-    }
-    else if menuvar == 2 {
+    } else if menuvar == 2 {
         endwin();
     }
 }
@@ -102,13 +108,12 @@ fn chapter_select(window: &Window) {
         loop {
             window.clear();
             window.mvaddstr(0, 0, "    Chapter Select\n\n");
-    
+
             if menuvar == 0 {
                 window.mvaddstr(2, 0, " > Chapter 1 and 2 <\n");
                 window.mvaddstr(3, 0, "   Testing Grounds  \n");
                 //window.mvaddstr(4, 0, "     Exit     \n");
-            }
-            else if menuvar == 1 {
+            } else if menuvar == 1 {
                 window.mvaddstr(2, 0, "   Chapter 1 and 2  \n");
                 window.mvaddstr(3, 0, " > Testing Grounds <\n");
                 //window.mvaddstr(4, 0, "     Exit     \n");
@@ -118,46 +123,44 @@ fn chapter_select(window: &Window) {
             //     window.mvaddstr(3, 0, "     Info     \n");
             //     window.mvaddstr(4, 0, ">    Exit    <\n");
             // }
-    
+
             window.mvaddstr(24, 0, "W: Up, S: Down, E: Select");
-    
+
             let ginput: char;
             match window.getch() {
-                Some(Input::Character(c)) => { ginput = c; },
-                Some(_input) => {ginput = ' '},
-                None => {ginput = ' '}
+                Some(Input::Character(c)) => {
+                    ginput = c;
+                }
+                Some(_input) => ginput = ' ',
+                None => ginput = ' ',
             }
-    
+
             if ginput == 'w' {
                 menuvar -= 1;
-    
+
                 if menuvar < 0 {
                     menuvar = 0;
                 }
-            }
-            else if ginput == 's' {
+            } else if ginput == 's' {
                 menuvar += 1;
-    
+
                 if menuvar > menumax {
                     menuvar = menumax;
                 }
-            }
-            else if ginput == 'e' {
+            } else if ginput == 'e' {
                 break;
             }
         }
 
         if menuvar == 0 {
             break;
-        }
-        else if menuvar == 1 {
+        } else if menuvar == 1 {
             break;
         }
     }
     if menuvar == 0 {
         chapter_1_intro(&window);
-    }
-    else if menuvar == 1 {
+    } else if menuvar == 1 {
         test(&window);
     }
 }
@@ -184,7 +187,11 @@ fn chapter_1_intro(window: &Window) {
             window.mvaddstr(6, 0, "Keegan: ...yes?");
         }
         if dialogue >= 5 {
-            window.mvaddstr(7, 0, "Kameron: I made something I want to show you. Follow me!");
+            window.mvaddstr(
+                7,
+                0,
+                "Kameron: I made something I want to show you. Follow me!",
+            );
         }
         if dialogue >= 6 {
             window.mvaddstr(8, 0, "Kameron runs off. Gotta catch up to him!");
@@ -195,9 +202,11 @@ fn chapter_1_intro(window: &Window) {
 
         match window.getch() {
             // Lazy Moment
-            Some(Input::Character(c)) => { _ginput = c; },
-            Some(_input) => {_ginput = ' '},
-            None => {_ginput = ' '}
+            Some(Input::Character(c)) => {
+                _ginput = c;
+            }
+            Some(_input) => _ginput = ' ',
+            None => _ginput = ' ',
         }
 
         dialogue += 1;
@@ -206,7 +215,9 @@ fn chapter_1_intro(window: &Window) {
 }
 
 fn keegans_room_ch1(window: &Window, x: i32, y: i32, showinfoonhud: bool) {
-    let mut hudtext: String = "\"W A S D\" to move, \"E\" to examine when on E objects, Walk on \"D\" to exit room.".to_string();
+    let mut hudtext: String =
+        "\"W A S D\" to move, \"E\" to examine when on E objects, Walk on \"D\" to exit room."
+            .to_string();
 
     if !showinfoonhud {
         hudtext.clear();
@@ -250,17 +261,19 @@ fn keegans_room_ch1(window: &Window, x: i32, y: i32, showinfoonhud: bool) {
         window.mvaddstr(12, 46, "---");
 
         window.mvaddstr(ky, kx, ksymbol.as_str()); // Keegan
-        window.mvaddstr(24, 0, hudtext.as_str());  // HUD
+        window.mvaddstr(24, 0, hudtext.as_str()); // HUD
         window.refresh();
 
         let ginput: char;
         match window.getch() {
-            Some(Input::Character(c)) => { ginput = c; },
+            Some(Input::Character(c)) => {
+                ginput = c;
+            }
             Some(Input::KeyDC) => break,
-            Some(_input) => {ginput = ' '},
-            None => {ginput = ' '}
+            Some(_input) => ginput = ' ',
+            None => ginput = ' ',
         }
-        
+
         hudtext = "Keegan's Room".to_string();
 
         // Set backup x and y values
@@ -309,8 +322,7 @@ fn keegans_room_ch1(window: &Window, x: i32, y: i32, showinfoonhud: bool) {
         // Barrier
         if kx < 0 || kx > 79 {
             kx = move_x_back(kbx);
-        }
-        else if ky < 0 || ky > 23 {
+        } else if ky < 0 || ky > 23 {
             ky = move_y_back(kby);
         }
 
@@ -321,7 +333,7 @@ fn keegans_room_ch1(window: &Window, x: i32, y: i32, showinfoonhud: bool) {
 
         // Detect Entering Door
         if at_point(kx, ky, 29, 11) {
-            fb_hallway1_ch1(window);
+            fb_hallway1_ch1(window, 48, 11);
         }
 
         // Examine Key
@@ -334,11 +346,11 @@ fn keegans_room_ch1(window: &Window, x: i32, y: i32, showinfoonhud: bool) {
     endwin();
 }
 
-fn fb_hallway1_ch1(window: &Window) {
+fn fb_hallway1_ch1(window: &Window, x: i32, y: i32) {
     let mut hudtext: String = "Hallway".to_string();
     let ksymbol: String = "K".to_string();
-    let mut kx: i32 = 48;
-    let mut ky: i32 = 11;
+    let mut kx: i32 = x; // 48
+    let mut ky: i32 = y; // 11
     let mut kbx: i32 = kx;
     let mut kby: i32 = ky;
     let debug = true;
@@ -383,15 +395,17 @@ fn fb_hallway1_ch1(window: &Window) {
 
         // Other Game Elements
         window.mvaddstr(ky, kx, ksymbol.as_str()); // Keegan
-        window.mvaddstr(24, 0, hudtext.as_str());  // HUD
+        window.mvaddstr(24, 0, hudtext.as_str()); // HUD
         window.refresh();
 
         let ginput: char;
         match window.getch() {
-            Some(Input::Character(c)) => { ginput = c; },
+            Some(Input::Character(c)) => {
+                ginput = c;
+            }
             Some(Input::KeyDC) => break,
-            Some(_input) => {ginput = ' '},
-            None => {ginput = ' '}
+            Some(_input) => ginput = ' ',
+            None => ginput = ' ',
         }
 
         hudtext = "Hallway".to_string();
@@ -435,8 +449,7 @@ fn fb_hallway1_ch1(window: &Window) {
         // Barrier
         if kx < 0 || kx > 79 {
             kx = move_x_back(kbx);
-        }
-        else if ky < 0 || ky > 23 {
+        } else if ky < 0 || ky > 23 {
             ky = move_y_back(kby);
         }
 
@@ -447,7 +460,93 @@ fn fb_hallway1_ch1(window: &Window) {
 
         // Detect Entering Elevator
         if at_point(39, 8, kx, ky) {
+            elevator_ch1(window, 1);
+        }
+    }
+}
 
+fn elevator_ch1(window: &Window, location: i32) {
+    // Location: 1=Hallway near Keegan's Room, 2=Hallway near Tech Room
+    let mut hudtext: String = "Hallway".to_string();
+    let ksymbol: String = "K".to_string();
+    let mut kx: i32 = 39;
+    let mut ky: i32 = 11;
+    let mut kbx: i32 = kx;
+    let mut kby: i32 = ky;
+    let debug = true;
+    window.keypad(true);
+    noecho();
+    // Game Loop
+    loop {
+        window.clear();
+        set_blink(false);
+        if debug {
+            window.mvaddstr(0, 10, format!("X: {}, Y: {}", kx, ky));
+            window.mvaddstr(1, 10, format!("BX: {}, BY: {}", kbx, kby));
+        }
+
+        // TODO Make Walls
+
+        // Short Path Y: 11
+        // Short Path X1: 40, X2: 38
+        window.mvaddstr(11, 40, "#");
+        window.mvaddstr(11, 38, "#");
+        window.mvaddstr(12, 38, "#");
+        window.mvaddstr(12, 40, "#");
+
+        // Walls (Side Walls Y: 10-8)
+        window.mvaddstr(10, 37, "#");
+        window.mvaddstr(10, 41, "#");
+        window.mvaddstr(11, 37, "#");
+        window.mvaddstr(11, 41, "#");
+
+        // Other Game Elements
+        window.mvaddstr(ky, kx, ksymbol.as_str()); // Keegan
+        window.mvaddstr(24, 0, hudtext.as_str()); // HUD
+        window.refresh();
+
+        let ginput: char;
+        match window.getch() {
+            Some(Input::Character(c)) => {
+                ginput = c;
+            }
+            Some(Input::KeyDC) => break,
+            Some(_input) => ginput = ' ',
+            None => ginput = ' ',
+        }
+
+        hudtext = "Hallway".to_string();
+
+        // Set backup x and y values
+        kbx = kx;
+        kby = ky;
+
+        // Movement
+        if ginput == 'w' {
+            ky -= 1;
+        }
+        if ginput == 'd' {
+            kx += 1;
+        }
+        if ginput == 's' {
+            ky += 1;
+        }
+        if ginput == 'a' {
+            kx -= 1;
+        }
+
+        // Barrier
+        if kx < 0 || kx > 79 {
+            kx = move_x_back(kbx);
+        } else if ky < 0 || ky > 23 {
+            ky = move_y_back(kby);
+        }
+
+        // Detect Exiting Elevator
+        if at_point(39, 12, kx, ky) {
+            if location == 1 {
+                fb_hallway1_ch1(window, 39, 9)
+            }
         }
     }
 }
@@ -481,16 +580,22 @@ fn test(window: &Window) {
             window.mvaddstr(1, 10, format!("BX: {}, BY: {}", k.bx, k.by));
         }
         window.mvaddstr(k.y, k.x, k.symbol.as_str());
-        window.mvaddstr(24, 0, "W: Up, A: Left, S: Down, D: Right, 9: Enable/Disable Debug");
+        window.mvaddstr(
+            24,
+            0,
+            "W: Up, A: Left, S: Down, D: Right, 9: Enable/Disable Debug",
+        );
         window.refresh();
         let ginput: char;
         match window.getch() {
-            Some(Input::Character(c)) => { ginput = c; },
+            Some(Input::Character(c)) => {
+                ginput = c;
+            }
             Some(Input::KeyDC) => break,
-            Some(_input) => {ginput = ' '},
-            None => {ginput = ' '}
+            Some(_input) => ginput = ' ',
+            None => ginput = ' ',
         }
-        
+
         // Set backup x and y values
         k.by = k.y;
         k.bx = k.x;
@@ -498,21 +603,16 @@ fn test(window: &Window) {
         // Movement
         if ginput == 'w' {
             k.y -= 1;
-        }
-        else if ginput == 's' {
+        } else if ginput == 's' {
             k.y += 1;
-        }
-        else if ginput == 'a' {
+        } else if ginput == 'a' {
             k.x -= 1;
-        }
-        else if ginput == 'd' {
+        } else if ginput == 'd' {
             k.x += 1;
-        }
-        else if ginput == '9' {
+        } else if ginput == '9' {
             if debug {
                 debug = false;
-            }
-            else {
+            } else {
                 debug = true;
             }
         }
@@ -520,8 +620,7 @@ fn test(window: &Window) {
         // Borders
         if k.x < 0 || k.x > 79 {
             k = move_player_back(k);
-        }
-        else if k.y < 0 || k.y > 23 {
+        } else if k.y < 0 || k.y > 23 {
             k = move_player_back(k);
         }
     }
@@ -530,5 +629,12 @@ fn test(window: &Window) {
 
 fn move_player_back(player: Player) -> Player {
     //println!("\nMove back sent!\n\nX: {}, Y: {}\nBX: {}, BY: {}", player.x, player.y, player.bx, player.by);
-    Player { x: (player.bx), y: (player.by), symbol: (player.symbol), bx: (player.bx), by: (player.by), hudtext: (player.hudtext) }
+    Player {
+        x: (player.bx),
+        y: (player.by),
+        symbol: (player.symbol),
+        bx: (player.bx),
+        by: (player.by),
+        hudtext: (player.hudtext),
+    }
 }
