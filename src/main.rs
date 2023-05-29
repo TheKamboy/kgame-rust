@@ -659,7 +659,68 @@ fn elevator_ch1(window: &Window, mut location: i32) {
     }
 }
 
-fn ch1_cutscene(window: &Window) {}
+fn ch1_cutscene(window: &Window) {
+    let mut dialogue = 0;
+    let mut _ginput: char;
+    loop {
+        window.clear();
+        window.mvaddstr(0, 0, "Keegan enters the Tech Room to find his brother.");
+
+        window.mvaddstr(24, 0, "Press any key to continue...");
+
+        if dialogue >= 1 {
+            window.mvaddstr(2, 0, "Keegan: You should've waited for me!");
+        }
+        if dialogue >= 2 {
+            window.mvaddstr(3, 0, "Kameron: Sorry, I was in a rush.");
+        }
+        if dialogue >= 3 {
+            window.mvaddstr(4, 0, "Keegan notices a machine covered with cloth.");
+        }
+        if dialogue >= 4 {
+            window.mvaddstr(5, 0, "Keegan: What is that?");
+        }
+        if dialogue >= 5 {
+            window.mvaddstr(6, 0, "Kameron: This is what I made! Look!");
+        }
+        if dialogue >= 6 {
+            window.mvaddstr(7, 0, "Kameron unwraps the machine.");
+        }
+        if dialogue == 7 {
+            window.mvaddstr(
+                8,
+                0,
+                "It's a box with a touch screen, with a big capsule, presumably one you can enter.",
+            );
+        }
+        if dialogue == 8 {
+            window.mvaddstr(9, 0, "Keegan: ...What is it?");
+        }
+        if dialogue == 9 {
+            window.mvaddstr(10, 0, "Kameron: It's a special time traveling machine! It teleports you to the time period you want.");
+        }
+        if dialogue == 10 {
+            window.mvaddstr(11, 0, "Keegan: Nice. Can I test it?");
+        }
+        if dialogue == 11 {
+            window.mvaddstr(12, 0, "Kameron: Yeah, that is what I called you over for. What time period do you want to go to?");
+        }
+        if dialogue == 12 {
+            window.mvaddstr(13, 0, "");
+        }
+
+        match window.getch() {
+            // Lazy Moment
+            Some(Input::Character(c)) => {
+                _ginput = c;
+            }
+            Some(_input) => _ginput = ' ',
+            None => _ginput = ' ',
+        }
+
+        dialogue += 1;
+    }
+}
 
 fn at_point(x: i32, y: i32, x2: i32, y2: i32) -> bool {
     if x == x2 && y == y2 {
