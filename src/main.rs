@@ -333,7 +333,7 @@ fn keegans_room_ch1(window: &Window, x: i32, y: i32, showinfoonhud: bool) {
 
         // Detect Entering Door
         if at_point(kx, ky, 29, 11) {
-            fb_hallway1_ch1(window, 48, 11);
+            fb_hallway1_ch1(window, 48, 11, 1);
         }
 
         // Examine Key
@@ -346,7 +346,7 @@ fn keegans_room_ch1(window: &Window, x: i32, y: i32, showinfoonhud: bool) {
     endwin();
 }
 
-fn fb_hallway1_ch1(window: &Window, x: i32, y: i32) {
+fn fb_hallway1_ch1(window: &Window, x: i32, y: i32, location: i32) {
     let mut hudtext: String = "Hallway".to_string();
     let ksymbol: String = "K".to_string();
     let mut kx: i32 = x; // 48
@@ -387,9 +387,18 @@ fn fb_hallway1_ch1(window: &Window, x: i32, y: i32) {
 
         while i != 29 {
             if i != 39 {
-                window.mvaddstr(9, i, "D");
+                if location == 1 {
+                    window.mvaddstr(9, i, "D");
+                } else {
+                    window.mvaddstr(9, i, "#");
+                }
             }
-            window.mvaddstr(13, i, "D");
+            if location == 1 {
+                window.mvaddstr(13, i, "D");
+            } else {
+                window.mvaddstr(13, i, "#");
+            }
+
             i -= 2;
         }
 
@@ -455,7 +464,11 @@ fn fb_hallway1_ch1(window: &Window, x: i32, y: i32) {
 
         // Detect Entering Door
         if at_point(kx, ky, 49, 11) {
-            keegans_room_ch1(window, 30, 11, false);
+            if location == 1 {
+                keegans_room_ch1(window, 30, 11, false);
+            } else {
+                ch1_cutscene(window);
+            }
         }
 
         // Detect Entering Elevator
@@ -484,8 +497,6 @@ fn elevator_ch1(window: &Window, mut location: i32) {
             window.mvaddstr(0, 10, format!("X: {}, Y: {}", kx, ky));
             window.mvaddstr(1, 10, format!("BX: {}, BY: {}", kbx, kby));
         }
-
-        // TODO Make Walls
 
         // Short Path Y: 11
         // Short Path X1: 40, X2: 38
@@ -643,12 +654,12 @@ fn elevator_ch1(window: &Window, mut location: i32) {
 
         // Detect Exiting Elevator
         if at_point(39, 12, kx, ky) {
-            if location == 1 {
-                fb_hallway1_ch1(window, 39, 9)
-            }
+            fb_hallway1_ch1(window, 39, 9, location)
         }
     }
 }
+
+fn ch1_cutscene(window: &Window) {}
 
 fn at_point(x: i32, y: i32, x2: i32, y2: i32) -> bool {
     if x == x2 && y == y2 {
