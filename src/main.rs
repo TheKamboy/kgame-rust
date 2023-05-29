@@ -728,6 +728,15 @@ fn ch1_cutscene(window: &Window) {
         if dialogue >= 15 {
             window.mvaddstr(19, 0, "Kameron turns on the machine, and sets it up.");
         }
+        if dialogue >= 16 {
+            window.mvaddstr(20, 0, "Keegan gets in, and Kameron presses a red button.");
+        }
+        if dialogue >= 17 {
+            window.mvaddstr(21, 0, "Everything turns white for Keegan.");
+        }
+        if dialogue >= 18 {
+            break;
+        }
 
         match window.getch() {
             // Lazy Moment
@@ -740,7 +749,10 @@ fn ch1_cutscene(window: &Window) {
 
         dialogue += 1;
     }
+    chapter_2_intro(window);
 }
+
+fn chapter_2_intro(window: &Window) {}
 
 fn at_point(x: i32, y: i32, x2: i32, y2: i32) -> bool {
     if x == x2 && y == y2 {
@@ -820,12 +832,14 @@ fn test(window: &Window) {
 
 fn move_player_back(player: Player) -> Player {
     //println!("\nMove back sent!\n\nX: {}, Y: {}\nBX: {}, BY: {}", player.x, player.y, player.bx, player.by);
-    Player {
+    let returnp: Player = Player {
         x: (player.bx),
         y: (player.by),
         symbol: (player.symbol),
         bx: (player.bx),
         by: (player.by),
         hudtext: (player.hudtext),
-    }
+    };
+
+    return returnp;
 }
