@@ -686,27 +686,47 @@ fn ch1_cutscene(window: &Window) {
         if dialogue >= 6 {
             window.mvaddstr(7, 0, "Kameron unwraps the machine.");
         }
-        if dialogue == 7 {
+        if dialogue >= 7 {
             window.mvaddstr(
                 8,
                 0,
-                "It's a box with a touch screen, with a big capsule, presumably one you can enter.",
+                "It's a box with a touch screen, with a big capsule, presumably one you can",
+            );
+            window.mvaddstr(9, 0, "enter.");
+        }
+        if dialogue >= 8 {
+            window.mvaddstr(10, 0, "Keegan: ...What is it?");
+        }
+        if dialogue >= 9 {
+            window.mvaddstr(
+                11,
+                0,
+                "Kameron: It's a special time traveling machine! It teleports you to the",
+            );
+            window.mvaddstr(12, 0, "time period you want.");
+        }
+        if dialogue >= 10 {
+            window.mvaddstr(13, 0, "Keegan: Nice. Can I test it?");
+        }
+        if dialogue >= 11 {
+            window.mvaddstr(14, 0, "Kameron: Yeah, that is what I called you over for.");
+            window.mvaddstr(15, 0, "What time period do you want to go to?");
+        }
+        if dialogue >= 12 {
+            window.mvaddstr(16, 0, "Keegan: Normandy, June 6, 1944.");
+        }
+        if dialogue >= 13 {
+            window.mvaddstr(
+                17,
+                0,
+                "Kameron: Isn't that D-Day? Whatever, just don't ruin the timeline.",
             );
         }
-        if dialogue == 8 {
-            window.mvaddstr(9, 0, "Keegan: ...What is it?");
+        if dialogue >= 14 {
+            window.mvaddstr(18, 0, "Keegan: Don't worry, I won't.");
         }
-        if dialogue == 9 {
-            window.mvaddstr(10, 0, "Kameron: It's a special time traveling machine! It teleports you to the time period you want.");
-        }
-        if dialogue == 10 {
-            window.mvaddstr(11, 0, "Keegan: Nice. Can I test it?");
-        }
-        if dialogue == 11 {
-            window.mvaddstr(12, 0, "Kameron: Yeah, that is what I called you over for. What time period do you want to go to?");
-        }
-        if dialogue == 12 {
-            window.mvaddstr(13, 0, "");
+        if dialogue >= 15 {
+            window.mvaddstr(19, 0, "Kameron turns on the machine, and sets it up.");
         }
 
         match window.getch() {
