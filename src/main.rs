@@ -752,7 +752,38 @@ fn ch1_cutscene(window: &Window) {
     chapter_2_intro(window);
 }
 
-fn chapter_2_intro(window: &Window) {}
+fn chapter_2_intro(window: &Window) {
+    let mut dialogue = 0;
+    let mut _ginput: char;
+    loop {
+        window.clear();
+        window.mvaddstr(0, 0, "Chapter 2: A Quick Disaster");
+
+        window.mvaddstr(24, 0, "Press any key to continue...");
+
+        if dialogue >= 1 {
+            window.mvaddstr(
+                2,
+                0,
+                "Keegan wakes up to gunfire, behind a wall, on the beach.",
+            );
+        }
+        if dialogue >= 2 {
+            window.mvaddstr(3, 0, "");
+        }
+
+        match window.getch() {
+            // Lazy Moment
+            Some(Input::Character(c)) => {
+                _ginput = c;
+            }
+            Some(_input) => _ginput = ' ',
+            None => _ginput = ' ',
+        }
+
+        dialogue += 1;
+    }
+}
 
 fn at_point(x: i32, y: i32, x2: i32, y2: i32) -> bool {
     if x == x2 && y == y2 {
