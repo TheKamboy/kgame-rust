@@ -769,7 +769,33 @@ fn chapter_2_intro(window: &Window) {
             );
         }
         if dialogue >= 2 {
-            window.mvaddstr(3, 0, "");
+            window.mvaddstr(3, 0, "Keegan: ...Ughhh, that was quick.");
+        }
+        if dialogue >= 3 {
+            window.mvaddstr(4, 0, "Keegan spots a box next to him.");
+        }
+        if dialogue >= 4 {
+            window.mvaddstr(5, 0, "He opens it to find an earpiece.");
+        }
+        if dialogue >= 5 {
+            window.mvaddstr(
+                6,
+                0,
+                "Keegan puts on the earpiece and tries to speak into it.",
+            );
+        }
+        if dialogue >= 6 {
+            window.mvaddstr(7, 0, "Keegan: Hello?");
+        }
+        if dialogue >= 7 {
+            window.mvaddstr(
+                8,
+                0,
+                "Kameron (On Earpiece): Hey! Took you long enough to wake up.",
+            );
+        }
+        if dialogue >= 8 {
+            window.mvaddstr(9, 0, "Keegan: Hey! Glad to here your voice.");
         }
 
         match window.getch() {
