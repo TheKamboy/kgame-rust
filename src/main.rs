@@ -795,7 +795,24 @@ fn chapter_2_intro(window: &Window) {
             );
         }
         if dialogue >= 8 {
-            window.mvaddstr(9, 0, "Keegan: Hey! Glad to here your voice.");
+            window.mvaddstr(9, 0, "Keegan: Hey! Glad to here your voice again.");
+        }
+        // Bruh my brother does not want to help me with the dialogue. Guess I will continue trying
+        // to make his dialogue
+        if dialogue >= 9 {
+            window.mvaddstr(
+                10,
+                0,
+                "Kameron: Yeah yeah, Whatever. Anyways, why did you want to go here?",
+            );
+        }
+        if dialogue >= 10 {
+            window.mvaddstr(
+                11,
+                0,
+                "Keegan: Well, I thought we should investigate to see what Hitler",
+            );
+            window.mvaddstr(12, 0, "was up to at this time period.");
         }
 
         match window.getch() {
