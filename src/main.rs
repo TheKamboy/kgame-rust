@@ -814,6 +814,9 @@ fn chapter_2_intro(window: &Window) {
             );
             window.mvaddstr(12, 0, "was up to at this time period.");
         }
+        if dialogue >= 11 {
+            window.mvaddstr(13, 0, "ho");
+        }
 
         match window.getch() {
             // Lazy Moment
@@ -865,9 +868,7 @@ fn test(window: &Window) {
         window.refresh();
         let ginput: char;
         match window.getch() {
-            Some(Input::Character(c)) => {
-                ginput = c;
-            }
+            Some(Input::Character(c)) => ginput = c,
             Some(Input::KeyDC) => break,
             Some(_input) => ginput = ' ',
             None => ginput = ' ',
