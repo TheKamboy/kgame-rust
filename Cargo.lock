@@ -18,8 +18,8 @@ checksum = "baf1de4339761588bc0619e3cbc0120ee582ebb74b53b4efbf79117bd2da40fd"
 name = "kgame-rust"
 version = "0.1.0"
 dependencies = [
+ "ncurses-rs",
  "pancurses",
- "pdcurses-sys",
 ]
 
 [[package]]
@@ -47,6 +47,12 @@ dependencies = [
  "libc",
  "pkg-config",
 ]
+
+[[package]]
+name = "ncurses-rs"
+version = "0.0.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "301b59a7b36f58c5c2cfa297de442f0e432cbfc06b3b9b567c180df44c2ff92c"
 
 [[package]]
 name = "pancurses"

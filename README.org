@@ -1,8 +1,46 @@
-* Keegan's Game (kgame)
-WARNING: This project is in a =ALPHA= state and may not work as intended.
-Looks like also the ncurses crate has issues but nothing I can do about it.
+:PROPERTIES:
+:ID:       7a87948d-f1e6-4b7d-ad75-49366a84f0a6
+:END:
+#+TITLE: Keegan's Game (kgame)
+#+AUTHOR: TheKamboy
+#+DATE: <2023-05-20 Sat>
 
-** Info
+[[https://raw.githubusercontent.com/TheKamboy/kgame-rust/master/assets/images/githubscreennew.png]]
+
+WARNING: This project is in a =ALPHA= state and may not work as intended.
+Packages may get changed based on where I'm working on this (ex: Windows, Linux)
+
+* Info
 This is just a small project I'm working on and may become something in the future.
 
 It's based on a game me and my older brother (Keegan) would play outside when I was younger.
+* How to Play
+You have 2 options on how to play.
+
+** Option 1
+Go into [[https://github.com/TheKamboy/kgame-rust/releases][Releases]], then select the version you want.
+Later on I will add more builds for different systems.
+** Option 2
+Make sure you have [[https://www.rust-lang.org/][Rust]] installed before doing this option.
+
+1) Clone the source code by running this command: ~git clone https://github.com/TheKamboy/kgame-rust.git~
+2) Check Cargo.toml to make sure the packages are correct. (ex: Windows should have ~ncurses-rs~ commented and ~pdcurses-sys~ uncommented, Linux should have ~pdcurses~ commented, and ~ncurses-rs~ uncommented.)
+3) Run the command ~cargo run~ and see if it will build completely.
+
+* Code Info
+** Packages
+~pancurses 0.17~
+~pdcurses-sys 0.7~
+~ncurses-rs 0.0.3~
+
+* Todos
+** TODO Chapter 1
+You learn a tiny bit about Keegan and his brother, Kameron
+*** WAIT Make Tutorial Map
+You will understand the game better.
+*** DONE Finish 2 Hallways
+Hallway with Rooms, and hallway with Kameron's Tech Room
+*** WAIT Add Second Cutscene
+Cutscene that plays in Kameron's Tech Room.
+** WAIT Chapter 2
+Keegan goes through his brothers time machine and gets a new experience on the world.
