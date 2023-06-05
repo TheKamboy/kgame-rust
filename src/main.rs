@@ -840,7 +840,7 @@ fn chapter_2_intro(window: &Window) {
 
 fn sneak_past_guard_tutorial_ch2(window: &Window) {
     loop {
-        // Will work on later tomorrow
+        window.clear();
     }
 }
 
