@@ -835,6 +835,13 @@ fn chapter_2_intro(window: &Window) {
 
         dialogue += 1;
     }
+    sneak_past_guard_tutorial_ch2(window);
+}
+
+fn sneak_past_guard_tutorial_ch2(window: &Window) {
+    loop {
+        // Will work on later tomorrow
+    }
 }
 
 fn at_point(x: i32, y: i32, x2: i32, y2: i32) -> bool {
