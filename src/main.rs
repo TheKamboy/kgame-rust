@@ -1,7 +1,6 @@
 extern crate pancurses;
 
-use pancurses::*;
-use std::cmp::Ordering;
+pub use pancurses::*;
 
 // Who you play as lol
 // Not used anymore lol
@@ -479,8 +478,9 @@ fn fb_hallway1_ch1(window: &Window, x: i32, y: i32, location: i32) {
     }
 }
 
-fn keegans_room_ch1(window: &Window) {
-    let mut hudtext: String = "\"W A S D\" to move, \"E\" to examine when on E objects".to_string();
+fn elevator_ch1(window: &Window, mut location: i32) {
+    // Location: 1=Hallway near Keegan's Room, 2=Hallway near Tech Room
+    let mut hudtext: String = "Hallway".to_string();
     let ksymbol: String = "K".to_string();
     let mut kx: i32 = 39;
     let mut ky: i32 = 11;
@@ -505,8 +505,19 @@ fn keegans_room_ch1(window: &Window) {
         window.mvaddstr(12, 38, "#");
         window.mvaddstr(12, 40, "#");
 
-        // Room (Middle Coords: 39, 11)
+        // Walls (Side Walls Y: 10-8)
+        window.mvaddstr(11, 37, "#");
+        window.mvaddstr(10, 37, "#");
+        window.mvaddstr(9, 37, "#");
+        window.mvaddstr(8, 37, "#");
+        window.mvaddstr(11, 41, "#");
+        window.mvaddstr(10, 41, "#");
+        window.mvaddstr(9, 41, "#");
+        window.mvaddstr(8, 41, "#");
+        window.mvaddstr(8, 38, "###");
 
+        // Examine Point
+        window.mvaddstr(10, 38, "E"); // Is controls for elevator
 
         // Other Game Elements
         window.mvaddstr(ky, kx, ksymbol.as_str()); // Keegan
@@ -543,6 +554,34 @@ fn keegans_room_ch1(window: &Window) {
             kx -= 1;
         }
 
+        // Wall Barriers
+        if kx == 38 || kx == 40 {
+            if ky == 12 {
+                kx = move_x_back(kbx);
+                ky = move_y_back(kby);
+            }
+        }
+
+        if kx >= 37 && kx <= 41 && kx != 39 && ky == 11 {
+            kx = move_x_back(kbx);
+            ky = move_y_back(kby);
+        }
+
+        // (X1: 37, X2: 41) (Y: 10-8)
+        if kx == 37 || kx == 41 {
+            if ky >= 8 && ky <= 10 {
+                kx = move_x_back(kbx);
+                ky = move_y_back(kby);
+            }
+        }
+
+        // X: 38-40
+        if kx >= 38 && kx <= 40 && ky == 8 {
+            kx = move_x_back(kbx);
+            ky = move_y_back(kby);
+        }
+
+        // Barrier
         if kx < 0 || kx > 79 {
             kx = move_x_back(kbx);
         } else if ky < 0 || ky > 23 {
