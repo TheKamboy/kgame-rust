@@ -815,7 +815,13 @@ fn chapter_2_intro(window: &Window) {
             window.mvaddstr(12, 0, "was up to at this time period.");
         }
         if dialogue >= 11 {
-            window.mvaddstr(13, 0, "ho");
+            window.mvaddstr(13, 0, "Kameron: Alright, I guess. Just don't get spotted!");
+        }
+        if dialogue >= 12 {
+            window.mvaddstr(14, 0, "Keegan: Don't worry, I won't.");
+        }
+        if dialogue >= 13 {
+            break;
         }
 
         match window.getch() {
