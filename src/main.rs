@@ -333,7 +333,7 @@ fn keegans_room_ch1(window: &Window, x: i32, y: i32, showinfoonhud: bool) {
 
         // Detect Entering Door
         if at_point(kx, ky, 29, 11) {
-            fb_hallway1_ch1(window, 48, 11, 1);
+            fb_hallway_ch1(window, 48, 11, 1);
         }
 
         // Examine Key
@@ -346,7 +346,7 @@ fn keegans_room_ch1(window: &Window, x: i32, y: i32, showinfoonhud: bool) {
     endwin();
 }
 
-fn fb_hallway1_ch1(window: &Window, x: i32, y: i32, location: i32) {
+fn fb_hallway_ch1(window: &Window, x: i32, y: i32, location: i32) {
     let mut hudtext: String = "Hallway".to_string();
     let ksymbol: String = "K".to_string();
     let mut kx: i32 = x; // 48
@@ -654,7 +654,7 @@ fn elevator_ch1(window: &Window, mut location: i32) {
 
         // Detect Exiting Elevator
         if at_point(39, 12, kx, ky) {
-            fb_hallway1_ch1(window, 39, 9, location)
+            fb_hallway_ch1(window, 39, 9, location)
         }
     }
 }
