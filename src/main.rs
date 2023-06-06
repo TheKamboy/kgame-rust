@@ -111,11 +111,11 @@ fn chapter_select(window: &Window) {
 
             if menuvar == 0 {
                 window.mvaddstr(2, 0, " > Chapter 1 and 2 <\n");
-                window.mvaddstr(3, 0, "   Testing Grounds  \n");
+                window.mvaddstr(3, 0, "      Tutorial      \n");
                 //window.mvaddstr(4, 0, "     Exit     \n");
             } else if menuvar == 1 {
                 window.mvaddstr(2, 0, "   Chapter 1 and 2  \n");
-                window.mvaddstr(3, 0, " > Testing Grounds <\n");
+                window.mvaddstr(3, 0, " >    Tutorial     <\n");
                 //window.mvaddstr(4, 0, "     Exit     \n");
             }
             // else if menuvar == 2 {
