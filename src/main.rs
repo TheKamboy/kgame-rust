@@ -863,6 +863,7 @@ fn move_y_back(kby: i32) -> i32 {
 fn tutorialch(window: &Window) {
     let mut k: Player = new(0, 0, "K".to_string(), "unused".to_string());
     let mut debug = true;
+    let mut tutorialnum = 0;
     window.keypad(true);
     noecho();
     // Game Loop
@@ -916,7 +917,7 @@ fn tutorialch(window: &Window) {
             k = move_player_back(k);
         }
     }
-    endwin();
+    chapter_select(window);
 }
 
 fn move_player_back(player: Player) -> Player {
