@@ -161,7 +161,7 @@ fn chapter_select(window: &Window) {
     if menuvar == 0 {
         chapter_1_intro(&window);
     } else if menuvar == 1 {
-        test(&window);
+        tutorialch(&window);
     }
 }
 
@@ -859,7 +859,8 @@ fn move_y_back(kby: i32) -> i32 {
     return kby;
 }
 
-fn test(window: &Window) {
+// If I can't reuse the unused shit then I'm going to rewrite this.
+fn tutorialch(window: &Window) {
     let mut k: Player = new(0, 0, "K".to_string(), "unused".to_string());
     let mut debug = true;
     window.keypad(true);
