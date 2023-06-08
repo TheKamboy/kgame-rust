@@ -835,12 +835,74 @@ fn chapter_2_intro(window: &Window) {
 
         dialogue += 1;
     }
-    sneak_past_guard_tutorial_ch2(window);
+    sneak_past_guard_tutorial_ch2(window, 11, 49);
 }
 
-fn sneak_past_guard_tutorial_ch2(window: &Window) {
+fn sneak_past_guard_tutorial_ch2(window: &Window, x: i32, y: i32) {
+    let mut hudtext: String = "You can press any other key to pass the time!".to_string();
+
+    let ksymbol: String = "K".to_string();
+    let mut kx: i32 = x;
+    let mut ky: i32 = y;
+    let mut kbx: i32 = kx;
+    let mut kby: i32 = ky;
+
+    let debug = true;
+
+    window.keypad(true);
+    noecho();
+    // Game Loop
     loop {
         window.clear();
+        set_blink(false);
+        if debug {
+            window.mvaddstr(0, 10, format!("X: {}, Y: {}", kx, ky));
+            window.mvaddstr(1, 10, format!("BX: {}, BY: {}", kbx, kby));
+        }
+        window.mvaddstr(ky, kx, ksymbol.as_str()); // Keegan
+        window.mvaddstr(24, 0, hudtext.as_str()); // HUD
+        window.refresh();
+
+        let ginput: char;
+        match window.getch() {
+            Some(Input::Character(c)) => {
+                ginput = c;
+            }
+
+            Some(Input::KeyDC) => break,
+            Some(_input) => ginput = ' ',
+            None => ginput = ' ',
+        }
+
+        hudtext = "Keegan's Room".to_string();
+
+        // Set backup x and y values
+        kbx = kx;
+        kby = ky;
+
+        // Movement
+        if ginput == 'w' {
+            ky -= 1;
+        }
+        if ginput == 'd' {
+            kx += 1;
+        }
+        if ginput == 's' {
+            ky += 1;
+        }
+        if ginput == 'a' {
+            kx -= 1;
+        }
+
+        // Barrier
+        if kx < 0 || kx > 79 {
+            kx = move_x_back(kbx);
+        } else if ky < 0 || ky > 23 {
+            ky = move_y_back(kby);
+        }
+
+        // Examine Key
+        if ginput == 'e' {}
     }
 }
 
@@ -859,7 +921,7 @@ fn move_y_back(kby: i32) -> i32 {
     return kby;
 }
 
-// If I can't reuse the unused shit then I'm going to rewrite this.
+//
 fn tutorialch(window: &Window) {
     let mut k: Player = new(0, 0, "K".to_string(), "unused".to_string());
     let mut debug = true;
