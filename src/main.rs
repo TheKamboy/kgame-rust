@@ -835,13 +835,13 @@ fn chapter_2_intro(window: &Window) {
 
         dialogue += 1;
     }
-    sneak_past_guard_tutorial_ch2(window, 11, 49);
+    sneak_past_guard_tutorial_ch2(window, 49, 11);
 }
 
 fn sneak_past_guard_tutorial_ch2(window: &Window, x: i32, y: i32) {
     let mut hudtext: String = "You can press any other key to pass the time!".to_string();
 
-    let ksymbol: String = "K".to_string();
+    let ksymbol: &str = "K";
     let mut kx: i32 = x;
     let mut ky: i32 = y;
     let mut kbx: i32 = kx;
@@ -859,7 +859,7 @@ fn sneak_past_guard_tutorial_ch2(window: &Window, x: i32, y: i32) {
             window.mvaddstr(0, 10, format!("X: {}, Y: {}", kx, ky));
             window.mvaddstr(1, 10, format!("BX: {}, BY: {}", kbx, kby));
         }
-        window.mvaddstr(ky, kx, ksymbol.as_str()); // Keegan
+        window.mvaddstr(ky, kx, ksymbol); // Keegan
         window.mvaddstr(24, 0, hudtext.as_str()); // HUD
         window.refresh();
 
