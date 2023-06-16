@@ -929,6 +929,7 @@ fn tutorialch(window: &Window) {
     window.keypad(true);
     noecho();
     // Game Loop
+    // TODO: Set up tutorial
     loop {
         window.clear();
         set_blink(false);
