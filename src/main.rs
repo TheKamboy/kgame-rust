@@ -2,28 +2,6 @@ extern crate pancurses;
 
 pub use pancurses::*;
 
-// Who you play as lol
-// Not used anymore lol
-struct Player {
-    pub x: i32,
-    pub y: i32,
-    pub bx: i32,
-    pub by: i32,
-    pub symbol: String,
-    pub hudtext: String,
-}
-
-fn new(x: i32, y: i32, symbol: String, hudtext: String) -> Player {
-    Player {
-        x: (x),
-        y: (y),
-        symbol: (symbol),
-        bx: (x),
-        by: (y),
-        hudtext: hudtext.to_string(),
-    }
-}
-
 fn main() {
     let window = initscr();
 
@@ -923,7 +901,12 @@ fn move_y_back(kby: i32) -> i32 {
 
 //
 fn tutorialch(window: &Window) {
-    let mut k: Player = new(0, 0, "K".to_string(), "unused".to_string());
+    // Keegan Variables
+    let mut kx: i32 = 0;
+    let mut ky: i32 = 0;
+    let mut kbx: i32 = kx;
+    let mut kby: i32 = ky;
+
     let mut debug = true;
     let mut _tutorialnum = 0;
     window.keypad(true);
@@ -934,10 +917,10 @@ fn tutorialch(window: &Window) {
         window.clear();
         set_blink(false);
         if debug {
-            window.mvaddstr(0, 10, format!("X: {}, Y: {}", k.x, k.y));
-            window.mvaddstr(1, 10, format!("BX: {}, BY: {}", k.bx, k.by));
+            window.mvaddstr(0, 10, format!("X: {}, Y: {}", kx, ky));
+            window.mvaddstr(1, 10, format!("BX: {}, BY: {}", kbx, kby));
         }
-        window.mvaddstr(k.y, k.x, k.symbol.as_str());
+        window.mvaddstr(ky, kx, "K");
         window.mvaddstr(
             24,
             0,
@@ -953,18 +936,18 @@ fn tutorialch(window: &Window) {
         }
 
         // Set backup x and y values
-        k.by = k.y;
-        k.bx = k.x;
+        kby = ky;
+        kbx = kx;
 
         // Movement
         if ginput == 'w' {
-            k.y -= 1;
+            ky -= 1;
         } else if ginput == 's' {
-            k.y += 1;
+            ky += 1;
         } else if ginput == 'a' {
-            k.x -= 1;
+            kx -= 1;
         } else if ginput == 'd' {
-            k.x += 1;
+            kx += 1;
         } else if ginput == '9' {
             if debug {
                 debug = false;
@@ -974,25 +957,11 @@ fn tutorialch(window: &Window) {
         }
 
         // Borders
-        if k.x < 0 || k.x > 79 {
-            k = move_player_back(k);
-        } else if k.y < 0 || k.y > 23 {
-            k = move_player_back(k);
+        if kx < 0 || kx > 79 {
+            kx = move_x_back(kbx);
+        } else if ky < 0 || ky > 23 {
+            ky = move_y_back(kby);
         }
     }
     chapter_select(window);
-}
-
-fn move_player_back(player: Player) -> Player {
-    //println!("\nMove back sent!\n\nX: {}, Y: {}\nBX: {}, BY: {}", player.x, player.y, player.bx, player.by);
-    let returnp: Player = Player {
-        x: (player.bx),
-        y: (player.by),
-        symbol: (player.symbol),
-        bx: (player.bx),
-        by: (player.by),
-        hudtext: (player.hudtext),
-    };
-
-    return returnp;
 }
