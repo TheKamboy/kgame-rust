@@ -913,6 +913,7 @@ fn tutorialch(window: &Window) {
     noecho();
     // Game Loop
     // TODO: Set up tutorial
+    // TODO: Make tutorial map
     loop {
         window.clear();
         set_blink(false);
