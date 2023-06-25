@@ -902,13 +902,21 @@ fn move_y_back(kby: i32) -> i32 {
 //
 fn tutorialch(window: &Window) {
     // Keegan Variables
-    let mut kx: i32 = 0;
-    let mut ky: i32 = 0;
+    let mut kx: i32 = 39;
+    let mut ky: i32 = 11;
     let mut kbx: i32 = kx;
     let mut kby: i32 = ky;
 
-    let mut debug = true;
-    let mut _tutorialnum = 0;
+    let hudtext: [&str; 6] = [
+        "Welcome to the Tutorial! Let's get one thing out of the way first.",
+        "This is you, the letter \"K\".",
+        "Anyways, with that out of the way, try moving with WASD!",
+        "Good job! Now try moving to that \"E\".",
+        "Now press \"E\" on your keyboard to examine.",
+        "That's basically it, press \"0\" when you are ready to quit.",
+    ];
+    let debug = true;
+    let mut tutorialnum = 0;
     window.keypad(true);
     noecho();
     // Game Loop
@@ -922,11 +930,14 @@ fn tutorialch(window: &Window) {
             window.mvaddstr(1, 10, format!("BX: {}, BY: {}", kbx, kby));
         }
         window.mvaddstr(ky, kx, "K");
-        window.mvaddstr(
-            24,
-            0,
-            "W: Up, A: Left, S: Down, D: Right, 9: Enable/Disable Debug",
-        );
+
+        if tutorialnum <= 1 {
+            window.mvaddstr(24, 0, "Press any key to continue...");
+            window.mvaddstr(23, 0, hudtext[tutorialnum]);
+        } else {
+            window.mvaddstr(24, 0, hudtext[tutorialnum]);
+        }
+
         window.refresh();
         let ginput: char;
         match window.getch() {
@@ -940,21 +951,37 @@ fn tutorialch(window: &Window) {
         kby = ky;
         kbx = kx;
 
-        // Movement
-        if ginput == 'w' {
-            ky -= 1;
-        } else if ginput == 's' {
-            ky += 1;
-        } else if ginput == 'a' {
-            kx -= 1;
-        } else if ginput == 'd' {
-            kx += 1;
-        } else if ginput == '9' {
-            if debug {
-                debug = false;
-            } else {
-                debug = true;
+        // Check tutorialnum
+        if tutorialnum <= 2 {
+            tutorialnum += 1;
+        }
+
+        if tutorialnum > 1 {
+            // Movement
+            if ginput == 'w' {
+                ky -= 1;
+                if tutorialnum == 2 {
+                    tutorialnum += 1;
+                }
+            } else if ginput == 's' {
+                ky += 1;
+                if tutorialnum == 2 {
+                    tutorialnum += 1;
+                }
+            } else if ginput == 'a' {
+                kx -= 1;
+                if tutorialnum == 2 {
+                    tutorialnum += 1;
+                }
+            } else if ginput == 'd' {
+                kx += 1;
+                if tutorialnum == 2 {
+                    tutorialnum += 1;
+                }
             }
+        }
+        if ginput == '0' {
+            chapter_select(window);
         }
 
         // Borders
