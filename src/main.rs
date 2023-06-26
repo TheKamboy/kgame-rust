@@ -929,6 +929,7 @@ fn tutorialch(window: &Window) {
             window.mvaddstr(0, 10, format!("X: {}, Y: {}", kx, ky));
             window.mvaddstr(1, 10, format!("BX: {}, BY: {}", kbx, kby));
         }
+        window.mvaddstr(11, 50, "E");
         window.mvaddstr(ky, kx, "K");
 
         if tutorialnum <= 1 {
@@ -982,6 +983,20 @@ fn tutorialch(window: &Window) {
         }
         if ginput == '0' {
             chapter_select(window);
+        }
+
+        if ginput == 'e' {
+            if at_point(kx, ky, 50, 11) {
+                if tutorialnum == 4 {
+                    tutorialnum += 1;
+                }
+            }
+        }
+
+        if at_point(kx, ky, 50, 11) {
+            if tutorialnum == 3 {
+                tutorialnum += 1;
+            }
         }
 
         // Borders
