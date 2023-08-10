@@ -825,6 +825,9 @@ fn sneak_past_guard_tutorial_ch2(window: &Window, x: i32, y: i32) {
     let mut kbx: i32 = kx;
     let mut kby: i32 = ky;
 
+    let mut guardsym = "G";
+    let mut guardtime = 3;
+
     let debug = true;
 
     window.keypad(true);
@@ -837,9 +840,12 @@ fn sneak_past_guard_tutorial_ch2(window: &Window, x: i32, y: i32) {
             window.mvaddstr(0, 10, format!("X: {}, Y: {}", kx, ky));
             window.mvaddstr(1, 10, format!("BX: {}, BY: {}", kbx, kby));
         }
-        
+
         // Guard
-        window.mvaddstr(13, x, string);
+        let timermsg = format!("{}", guardtime);
+        window.mvaddstr(7, 40, timermsg);
+        window.mvaddstr(8, 40, "|"); // Part of timer
+        window.mvaddstr(9, 40, guardsym);
 
         window.mvaddstr(ky, kx, ksymbol); // Keegan
         window.mvaddstr(24, 0, hudtext.as_str()); // HUD
@@ -856,7 +862,7 @@ fn sneak_past_guard_tutorial_ch2(window: &Window, x: i32, y: i32) {
             None => ginput = ' ',
         }
 
-        hudtext = "Keegan's Room".to_string();
+        hudtext = "You can press any other key to pass the time!".to_string();
 
         // Set backup x and y values
         kbx = kx;
@@ -885,6 +891,18 @@ fn sneak_past_guard_tutorial_ch2(window: &Window, x: i32, y: i32) {
 
         // Examine Key
         if ginput == 'e' {}
+
+        if guardtime >= 0 {
+            guardtime -= 1;
+        } else {
+            guardtime = 3;
+
+            if guardsym == "G" {
+                guardsym = "g";
+            } else {
+                guardsym = "G";
+            }
+        }
     }
 }
 
