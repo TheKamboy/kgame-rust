@@ -837,6 +837,10 @@ fn sneak_past_guard_tutorial_ch2(window: &Window, x: i32, y: i32) {
             window.mvaddstr(0, 10, format!("X: {}, Y: {}", kx, ky));
             window.mvaddstr(1, 10, format!("BX: {}, BY: {}", kbx, kby));
         }
+        
+        // Guard
+        window.mvaddstr(13, x, string);
+
         window.mvaddstr(ky, kx, ksymbol); // Keegan
         window.mvaddstr(24, 0, hudtext.as_str()); // HUD
         window.refresh();
