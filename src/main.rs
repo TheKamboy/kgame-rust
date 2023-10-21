@@ -135,9 +135,9 @@ fn chapter_select(window: &Window) {
         }
     }
     if menuvar == 0 {
-        chapter_1_intro(&window);
+        chapter_1_intro(window);
     } else if menuvar == 1 {
-        tutorialch(&window);
+        tutorialch(window);
     }
 }
 
@@ -271,34 +271,32 @@ fn keegans_room_ch1(window: &Window, x: i32, y: i32, showinfoonhud: bool) {
         }
 
         // Wall Barriers
-        if kx == 29 && ky <= 13 && ky >= 9 && ky != 11 {
+        if kx == 29 && (9..=13).contains(&ky) && ky != 11 {
             kx = move_x_back(kbx);
             ky = move_y_back(kby);
         }
-        if kx == 49 && ky <= 13 && ky >= 9 {
+        if kx == 49 && (9..=13).contains(&ky) {
             kx = move_x_back(kbx);
             ky = move_y_back(kby)
         }
 
         // (X1: 30, X2: 48)
-        if kx >= 30 && kx <= 48 {
-            if ky == 13 || ky == 9 {
-                kx = move_x_back(kbx);
-                ky = move_y_back(kby);
-            }
+        if (30..=48).contains(&kx) && (ky == 13 || ky == 9) {
+            kx = move_x_back(kbx);
+            ky = move_y_back(kby);
         }
 
         // Table Barriers
         // X: 46-48, Y: 10-12
-        if kx >= 46 && kx <= 48 && ky >= 10 && ky <= 12 {
+        if (46..=48).contains(&kx) && (10..=12).contains(&ky) {
             kx = move_x_back(kbx);
             ky = move_y_back(kby);
         }
 
         // Barrier
-        if kx < 0 || kx > 79 {
+        if !(0..=79).contains(&kx) {
             kx = move_x_back(kbx);
-        } else if ky < 0 || ky > 23 {
+        } else if !(0..=23).contains(&ky) {
             ky = move_y_back(kby);
         }
 
@@ -313,10 +311,8 @@ fn keegans_room_ch1(window: &Window, x: i32, y: i32, showinfoonhud: bool) {
         }
 
         // Examine Key
-        if ginput == 'e' {
-            if at_point(kx, ky, 45, 11) {
-                hudtext = "Keegan: This is my computer. It's only for work.".to_string();
-            }
+        if ginput == 'e' && at_point(kx, ky, 45, 11) {
+            hudtext = "Keegan: This is my computer. It's only for work.".to_string();
         }
     }
     endwin();
@@ -414,27 +410,25 @@ fn fb_hallway_ch1(window: &Window, x: i32, y: i32, location: i32) {
         }
 
         // Wall Barriers
-        if kx == 29 && ky <= 13 && ky >= 9 {
+        if kx == 29 && (9..=13).contains(&ky) {
             kx = move_x_back(kbx);
             ky = move_y_back(kby);
         }
-        if kx == 49 && ky <= 13 && ky >= 9 && ky != 11 {
+        if kx == 49 && (9..=13).contains(&ky) && ky != 11 {
             kx = move_x_back(kbx);
             ky = move_y_back(kby)
         }
 
         // (X1: 30, X2: 48)
-        if kx >= 30 && kx <= 48 && kx != 39 {
-            if ky == 13 || ky == 9 {
-                kx = move_x_back(kbx);
-                ky = move_y_back(kby);
-            }
+        if (30..=48).contains(&kx) && kx != 39 && (ky == 13 || ky == 9) {
+            kx = move_x_back(kbx);
+            ky = move_y_back(kby);
         }
 
         // Barrier
-        if kx < 0 || kx > 79 {
+        if !(0..=79).contains(&kx) {
             kx = move_x_back(kbx);
-        } else if ky < 0 || ky > 23 {
+        } else if !(0..=23).contains(&ky) {
             ky = move_y_back(kby);
         }
 
@@ -531,36 +525,32 @@ fn elevator_ch1(window: &Window, mut location: i32) {
         }
 
         // Wall Barriers
-        if kx == 38 || kx == 40 {
-            if ky == 12 {
-                kx = move_x_back(kbx);
-                ky = move_y_back(kby);
-            }
+        if (kx == 38 || kx == 40) && ky == 12 {
+            kx = move_x_back(kbx);
+            ky = move_y_back(kby);
         }
 
-        if kx >= 37 && kx <= 41 && kx != 39 && ky == 11 {
+        if (37..=41).contains(&kx) && kx != 39 && ky == 11 {
             kx = move_x_back(kbx);
             ky = move_y_back(kby);
         }
 
         // (X1: 37, X2: 41) (Y: 10-8)
-        if kx == 37 || kx == 41 {
-            if ky >= 8 && ky <= 10 {
-                kx = move_x_back(kbx);
-                ky = move_y_back(kby);
-            }
+        if (kx == 37 || kx == 41) && (8..=10).contains(&ky) {
+            kx = move_x_back(kbx);
+            ky = move_y_back(kby);
         }
 
         // X: 38-40
-        if kx >= 38 && kx <= 40 && ky == 8 {
+        if (38..=40).contains(&kx) && ky == 8 {
             kx = move_x_back(kbx);
             ky = move_y_back(kby);
         }
 
         // Barrier
-        if kx < 0 || kx > 79 {
+        if !(0..=79).contains(&kx) {
             kx = move_x_back(kbx);
-        } else if ky < 0 || ky > 23 {
+        } else if !(0..=23).contains(&ky) {
             ky = move_y_back(kby);
         }
 
@@ -568,63 +558,61 @@ fn elevator_ch1(window: &Window, mut location: i32) {
             hudtext = "Press E to examine.".to_string();
         }
 
-        if ginput == 'e' {
-            if at_point(38, 10, kx, ky) {
-                let mut emenunum: i32 = 0;
-                loop {
-                    window.clear();
-                    window.mvaddstr(0, 0, "     Elevator Menu\n\n");
+        if ginput == 'e' && at_point(38, 10, kx, ky) {
+            let mut emenunum: i32 = 0;
+            loop {
+                window.clear();
+                window.mvaddstr(0, 0, "     Elevator Menu\n\n");
 
-                    if emenunum == 0 {
-                        if location == 1 {
-                            window.mvaddstr(2, 0, " >    Lower Floor*    <\n");
-                            window.mvaddstr(3, 0, "      Upper Floor      \n");
-                        } else {
-                            window.mvaddstr(2, 0, " >    Lower Floor     <\n");
-                            window.mvaddstr(3, 0, "      Upper Floor*     \n");
-                        }
-
-                        //window.mvaddstr(4, 0, "     Exit     \n");
-                    } else if emenunum == 1 {
-                        if location == 1 {
-                            window.mvaddstr(2, 0, "      Lower Floor*     \n");
-                            window.mvaddstr(3, 0, " >    Upper Floor     <\n");
-                        } else {
-                            window.mvaddstr(2, 0, "      Lower Floor      \n");
-                            window.mvaddstr(3, 0, " >    Upper Floor*    <\n");
-                        }
+                if emenunum == 0 {
+                    if location == 1 {
+                        window.mvaddstr(2, 0, " >    Lower Floor*    <\n");
+                        window.mvaddstr(3, 0, "      Upper Floor      \n");
+                    } else {
+                        window.mvaddstr(2, 0, " >    Lower Floor     <\n");
+                        window.mvaddstr(3, 0, "      Upper Floor*     \n");
                     }
 
-                    window.mvaddstr(24, 0, "W: Up, S: Down, E: Select");
-
-                    let ginput: char;
-                    match window.getch() {
-                        Some(Input::Character(c)) => {
-                            ginput = c;
-                        }
-                        Some(_input) => ginput = ' ',
-                        None => ginput = ' ',
-                    }
-
-                    if ginput == 'w' {
-                        emenunum -= 1;
-
-                        if emenunum < 0 {
-                            emenunum = 0;
-                        }
-                    } else if ginput == 's' {
-                        emenunum += 1;
-
-                        if emenunum > 1 {
-                            emenunum = 1;
-                        }
-                    } else if ginput == 'e' {
-                        break;
+                    //window.mvaddstr(4, 0, "     Exit     \n");
+                } else if emenunum == 1 {
+                    if location == 1 {
+                        window.mvaddstr(2, 0, "      Lower Floor*     \n");
+                        window.mvaddstr(3, 0, " >    Upper Floor     <\n");
+                    } else {
+                        window.mvaddstr(2, 0, "      Lower Floor      \n");
+                        window.mvaddstr(3, 0, " >    Upper Floor*    <\n");
                     }
                 }
-                if emenunum + 1 != location {
-                    location = emenunum + 1;
+
+                window.mvaddstr(24, 0, "W: Up, S: Down, E: Select");
+
+                let ginput: char;
+                match window.getch() {
+                    Some(Input::Character(c)) => {
+                        ginput = c;
+                    }
+                    Some(_input) => ginput = ' ',
+                    None => ginput = ' ',
                 }
+
+                if ginput == 'w' {
+                    emenunum -= 1;
+
+                    if emenunum < 0 {
+                        emenunum = 0;
+                    }
+                } else if ginput == 's' {
+                    emenunum += 1;
+
+                    if emenunum > 1 {
+                        emenunum = 1;
+                    }
+                } else if ginput == 'e' {
+                    break;
+                }
+            }
+            if emenunum + 1 != location {
+                location = emenunum + 1;
             }
         }
 
@@ -881,14 +869,14 @@ fn sneak_past_guard_tutorial_ch2(window: &Window, x: i32, y: i32) {
         }
 
         // Barrier
-        if kx < 0 || kx > 79 {
+        if !(0..=79).contains(&kx) {
             kx = move_x_back(kbx);
-        } else if ky < 0 || ky > 23 {
+        } else if !(0..=23).contains(&ky) {
             ky = move_y_back(kby);
         }
 
         // Examine Key
-        if ginput == 'e' {}
+        ginput == 'e';
 
         if guardtime >= 0 {
             guardtime -= 1;
@@ -908,15 +896,15 @@ fn at_point(x: i32, y: i32, x2: i32, y2: i32) -> bool {
     if x == x2 && y == y2 {
         return true;
     }
-    return false;
+    false
 }
 
 fn move_x_back(kbx: i32) -> i32 {
-    return kbx;
+    kbx
 }
 
 fn move_y_back(kby: i32) -> i32 {
-    return kby;
+    kby
 }
 
 //
@@ -1005,24 +993,18 @@ fn tutorialch(window: &Window) {
             chapter_select(window);
         }
 
-        if ginput == 'e' {
-            if at_point(kx, ky, 50, 11) {
-                if tutorialnum == 4 {
-                    tutorialnum += 1;
-                }
-            }
+        if ginput == 'e' && at_point(kx, ky, 50, 11) && tutorialnum == 4 {
+            tutorialnum += 1;
         }
 
-        if at_point(kx, ky, 50, 11) {
-            if tutorialnum == 3 {
-                tutorialnum += 1;
-            }
+        if at_point(kx, ky, 50, 11) && tutorialnum == 3 {
+            tutorialnum += 1;
         }
 
         // Borders
-        if kx < 0 || kx > 79 {
+        if !(0..=79).contains(&kx) {
             kx = move_x_back(kbx);
-        } else if ky < 0 || ky > 23 {
+        } else if !(0..=23).contains(&ky) {
             ky = move_y_back(kby);
         }
     }
