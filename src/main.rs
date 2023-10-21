@@ -130,9 +130,7 @@ fn chapter_select(window: &Window) {
             }
         }
 
-        if menuvar == 0 {
-            break;
-        } else if menuvar == 1 {
+        if menuvar == 0 || menuvar == 1 {
             break;
         }
     }
@@ -250,7 +248,7 @@ fn keegans_room_ch1(window: &Window, x: i32, y: i32, showinfoonhud: bool) {
             Some(Input::KeyDC) => break,
             Some(_input) => ginput = ' ',
             None => ginput = ' ',
-        }
+        };
 
         hudtext = "Keegan's Room".to_string();
 
