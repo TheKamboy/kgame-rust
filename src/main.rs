@@ -1,6 +1,10 @@
+#![allow(clippy::needless_late_init)]
+
 extern crate pancurses;
 
 pub use pancurses::*;
+
+// The fix they give doesn't work so
 
 fn main() {
     let window = initscr();
@@ -874,9 +878,6 @@ fn sneak_past_guard_tutorial_ch2(window: &Window, x: i32, y: i32) {
         } else if !(0..=23).contains(&ky) {
             ky = move_y_back(kby);
         }
-
-        // Examine Key
-        ginput == 'e';
 
         if guardtime >= 0 {
             guardtime -= 1;
